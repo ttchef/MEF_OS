@@ -1,0 +1,22 @@
+
+
+# Objektdateien
+*.o
+
+# Kernel-Binaries
+kernel8.elf
+kernel8.img
+
+# Build-Artefakte
+*.bin
+*.elf
+*.img
+
+# Toolchains
+aarch64-none-elf-gcc*
+arm-gnu-toolchain-*
+
+# Sonstiges
+*.log
+*.tmp
+
