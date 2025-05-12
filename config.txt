@@ -1,0 +1,10 @@
+
+# config.txt 
+# 98 character limit !!!
+
+kernel=kernel8.img #kernel8 für 64Bit 
+enable_uart=1
+arm_64bit=1
+disable_commandline_tags=1 #dont give argmunets to kernel
+disable_overscan=1
+
