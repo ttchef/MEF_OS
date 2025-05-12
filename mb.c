@@ -5,13 +5,13 @@
 
 
 unsigned int mbox_read(unsigned int channel) {
-    unsigned int message;
+    unsigned int message, m_channel;
 
     do {
         while(mmio_read(MBOX0_STATUS) & MBOX_EMPTY);
         unsigned int message = mmio_read(MBOX0);
-        unsigned int m_channel = message & 0xF;
-    } while (channel != channel);
+        m_channel = message & 0xF;
+    } while (m_channel != channel);
 
     return message;
 }
