@@ -1,6 +1,7 @@
 
 #include "io.h"
 #include "fb.h"
+#include "utils.h"
 
 void main()
 {
@@ -13,7 +14,7 @@ void main()
 
     for (int y = 0; y < 1080; y++) {
         for (int x = 0; x < 1920; x++) {
-            framebuffer[(y * pitch / 4) + x] = 0x00FFFFFF;
+            framebuffer[(y * pitch / 4) + x] = make_color(255, 0, 0);
         }
     }
 
