@@ -12,14 +12,14 @@ u64 get_system_timer() {
     return (high << 32) | low;
 }
 
-void wait_ms(u32 n) {
+void wait_ms(u64 n) {
     // convert micro to milli 
     n *= 1000;
     u64 last_time = get_system_timer();
     while(get_system_timer() - last_time < n);
 }
 
-void wait_s(u32 n) {
+void wait_s(u64 n) {
     // convert micro to sec
     n *= 1000000;
     u64 last_time = get_system_timer();

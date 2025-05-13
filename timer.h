@@ -9,5 +9,5 @@ enum {
 unsigned long long get_system_timer();
 
 
-void wait_ms(unsigned int n);
-void wait_s(unsigned int n);
+void wait_ms(unsigned long long n);
+void wait_s(unsigned long long n);

@@ -13,6 +13,11 @@ void main()
 
     frame_buffer_init();
 
+    while (1) {
+        uart_write_text("Test", UART_NEW_LINE);
+        wait_s(5);
+    }
+
     u16 r = 0;
     u16 g = 100;
     u16 b = 200;
@@ -28,11 +33,10 @@ void main()
                 draw_pixel(x, y, (Color){r, g, b, 255});
             }
         }
-        wait_ms(5);
         uart_write_text("Loop", UART_NEW_LINE);
     }
 
-
+    wait_s(5);
     uart_write_text("[DEBUG] Kernel Loop!", UART_NEW_LINE);
 
 
