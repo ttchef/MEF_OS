@@ -14,7 +14,7 @@ void main()
 
     for (int y = 0; y < 1080; y++) {
         for (int x = 0; x < 1920; x++) {
-            framebuffer[(y * pitch / 4) + x] = make_color(255, 0, 0);
+            framebuffer[get_fb_of(x, y, pitch)] = make_color(255, 0, 0);
         }
     }
 
