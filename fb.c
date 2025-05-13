@@ -7,6 +7,26 @@ volatile unsigned int __attribute__((aligned(16))) mbox[30];
 unsigned int* framebuffer;
 unsigned int pitch;
 
+// return 1 if error
+unsigned int check_mailbox_response() {
+    if (mbox[1] != MBOX_RESPONSE_SUCCESS) {
+        if (uart_init_v && mbox[1] == 0) {
+        uart_write_text("[ERROR] Mailbox Sending Failed!", UART_NEW_LINE);
+        uart_write_text("[DEBUG] Mailbox Code: ", UART_NONE);
+        uart_write_uint(mbox[1], UART_NEW_LINE);
+        }
+
+        else if (uart_init_v && mbox[1] == MBOX_RESPONSE_PARSING_ERR) {
+        uart_write_text("[ERROR] Mailbox Sending Failed Parsing Error!", UART_NEW_LINE);
+        uart_write_text("[DEBUG] Mailbox Code: ", UART_NONE);
+        uart_write_uint(mbox[1], UART_NEW_LINE);
+
+        }
+        return 1;
+    }
+    return 0;
+}
+
 void frame_buffer_init() {
 
     uart_write_text("[DEBUG] Framebuffer Beginning!", UART_NEW_LINE);
@@ -46,26 +66,13 @@ void frame_buffer_init() {
     mbox[25] = END_TAG;
 
     // Padding
-    mbox[26] = 0; mbox[27] = 0; mbox[28] = 0; mbox[30] = 0;
+    mbox[26] = 0; mbox[27] = 0; mbox[28] = 0; mbox[29] = 0;
 
     uart_write_text("[DEBUG] Framebuffer before Write!", UART_NEW_LINE);
 
     mbox_write((long)mbox, PROPERTY_TAG_ARM_GPU);
     mbox_read(PROPERTY_TAG_ARM_GPU);
-    if (mbox[1] != MBOX_RESPONSE_SUCCESS) {
-        if (uart_init_v && mbox[1] == 0) {
-            uart_write_text("[ERROR] Mailbox Sending Failed!", UART_NEW_LINE);
-            uart_write_text("[DEBUG] Mailbox Code: ", UART_NONE);
-            uart_write_uint(mbox[1], UART_NEW_LINE);
-        }
-        else if (uart_init_v && mbox[1] == MBOX_RESPONSE_PARSING_ERR) {
-            uart_write_text("[ERROR] Mailbox Sending Failed Parsing Error!", UART_NEW_LINE);
-            uart_write_text("[DEBUG] Mailbox Code: ", UART_NONE);
-            uart_write_uint(mbox[1], UART_NEW_LINE);
-
-        }
-        return;
-    }
+    check_mailbox_response();
 
     uart_write_text("[DEBUG] Mailbox Code: ", UART_NONE);
     uart_write_uint(mbox[1], UART_NEW_LINE);
@@ -87,20 +94,7 @@ void frame_buffer_init() {
 
     mbox_write((long)mbox, PROPERTY_TAG_ARM_GPU);
     mbox_read(PROPERTY_TAG_ARM_GPU);
-    if (mbox[1] != MBOX_RESPONSE_SUCCESS) {
-        if (uart_init_v && mbox[1] == 0) {
-            uart_write_text("[ERROR] Mailbox Sending Failed!", UART_NEW_LINE);
-            uart_write_text("[DEBUG] Mailbox Code: ", UART_NONE);
-            uart_write_uint(mbox[1], UART_NEW_LINE);
-        }
-        else if (uart_init_v && mbox[1] == MBOX_RESPONSE_PARSING_ERR) {
-            uart_write_text("[ERROR] Mailbox Sending Failed Parsing Error!", UART_NEW_LINE);
-            uart_write_text("[DEBUG] Mailbox Code: ", UART_NONE);
-            uart_write_uint(mbox[1], UART_NEW_LINE);
-
-        }
-        return;
-    }
+    check_mailbox_response();
 
     uart_write_text("[DEBUG] Framebuffer: ", UART_NONE);
     uart_write_uint(mbox[5], UART_NEW_LINE);
@@ -112,4 +106,5 @@ void frame_buffer_init() {
 
     uart_write_text("[DEBUG] FB Init finish!", UART_NEW_LINE);
 }
+
 
