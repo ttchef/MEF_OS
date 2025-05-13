@@ -32,7 +32,7 @@ void frame_buffer_init() {
     uart_write_text("[DEBUG] Framebuffer Beginning!", UART_NEW_LINE);
 
     // Set Screen properties 
-    mbox[0] = 34*4;
+    mbox[0] = 30*4;
     mbox[1] = 0;
 
     mbox[2] = SET_SCREEN_SIZE;
