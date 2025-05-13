@@ -1,0 +1,13 @@
+
+
+enum {
+    TIMER_BASE = 0xFE003000,
+    TIMER_CLO = TIMER_BASE + 0x04,
+    TIMER_CHI = TIMER_BASE + 0x08,
+};
+
+unsigned long long get_system_timer();
+
+
+void wait_ms(unsigned int n);
+void wait_s(unsigned int n);
