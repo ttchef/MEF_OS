@@ -9,7 +9,7 @@ u64 get_system_timer() {
     low = *(volatile u32*)TIMER_CLO; 
     high = *(volatile u32*)TIMER_CHI;
 
-    return (high << 32) | low;
+    return ((u64)high << 32) | low;
 }
 
 void wait_ms(u64 n) {
