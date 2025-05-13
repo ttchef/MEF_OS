@@ -14,7 +14,7 @@ void main()
 
     for (int y = 0; y < 1080; y++) {
         for (int x = 0; x < 1920; x++) {
-            framebuffer[get_fb_of(x, y, pitch)] = make_color(255, 0, 0);
+            draw_pixel(x, y, (Color){20, 200, 5, 255});
         }
     }
 
