@@ -7,7 +7,10 @@
 #define SCREENWIDTH 1920
 #define SCREENHEIGHT 1080
 
+#define FRAMEBUFFER_SIZE 8355840/4
+
 extern unsigned int* framebuffer;
+
 extern unsigned int pitch;
 extern unsigned int num_pixels;
 
