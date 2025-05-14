@@ -1,5 +1,0 @@
-
-enum {
-    PERIPHERAL_BASE = 0xFE000000
-};
-

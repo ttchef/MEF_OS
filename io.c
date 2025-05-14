@@ -1,6 +1,6 @@
 
-#include "base.h"
 #include "io.h"
+#include "globals.h"
 
 unsigned int uart_init_v;
 

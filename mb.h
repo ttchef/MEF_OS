@@ -1,5 +1,8 @@
 
-#include "base.h"
+#ifndef MAILBOX_H
+#define MAILBOX_H
+
+#include "globals.h"
 
 enum {
     MBOX_OFFSET = PERIPHERAL_BASE + 0xb880,
@@ -57,4 +60,6 @@ enum {
 
 unsigned int mbox_read(unsigned int channel);
 void mbox_write(unsigned int data, unsigned int channel);
+
+#endif
 

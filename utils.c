@@ -1,6 +1,6 @@
 
 #include "utils.h"
-#include "fb.h"
+#include "globals.h"
 
 u32 make_color(u32 red, u32 green, u32 blue) {
     return (0xFF << 24) | (red << 16) | (green << 8) | blue;

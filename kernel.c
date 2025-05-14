@@ -13,11 +13,6 @@ void main()
 
     frame_buffer_init();
 
-    while (1) {
-        uart_write_text("Test", UART_NEW_LINE);
-        wait_s(5);
-    }
-
     u16 r = 0;
     u16 g = 100;
     u16 b = 200;
@@ -33,7 +28,8 @@ void main()
                 draw_pixel(x, y, (Color){r, g, b, 255});
             }
         }
-        uart_write_text("Loop", UART_NEW_LINE);
+        uart_write_text("Test", UART_NEW_LINE);
+        wait_s(5);
     }
 
     wait_s(5);

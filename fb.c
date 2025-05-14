@@ -2,10 +2,9 @@
 #include "fb.h"
 #include "mb.h"
 #include "io.h"
+#include "globals.h"
 
 volatile unsigned int __attribute__((aligned(16))) mbox[30];
-unsigned int* framebuffer;
-unsigned int pitch;
 
 // return 1 if error
 unsigned int check_mailbox_response() {

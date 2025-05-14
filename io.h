@@ -1,4 +1,7 @@
 
+#ifndef IO_H
+#define IO_H
+
 extern unsigned int uart_init_v;
 
 // UART WRITE FLAGS 
@@ -23,4 +26,6 @@ void uart_init(unsigned int* init);
 void uart_write_text(char *buffer, unsigned int flags);
 void uart_write_uint(unsigned int n, unsigned int flags);
 void uart_write_int(int n, unsigned int flags);
+
+#endif 
 
