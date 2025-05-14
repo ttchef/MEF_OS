@@ -23,13 +23,8 @@ void main()
         g+=inc;
         b+=inc;
 
-        for (int y = 0; y < 1080; y++) {
-            for (int x = 0; x < 1920; x++) {
-                draw_pixel(x, y, (Color){r, g, b, 255});
-            }
-        }
-        uart_write_text("Test", UART_NEW_LINE);
-        wait_s(5);
+        clear_color_u32(make_color(r, g, b));
+        //wait_s(5);
     }
 
     wait_s(5);

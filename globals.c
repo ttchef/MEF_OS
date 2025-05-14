@@ -2,8 +2,8 @@
 #include "globals.h"
 #include "utils.h"
 
-unsigned int* framebuffer;
-unsigned int pitch;
-
+u32* framebuffer;
+u32 pitch;
+u32 num_pixels;
 
 

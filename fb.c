@@ -37,14 +37,14 @@ void frame_buffer_init() {
     mbox[2] = SET_SCREEN_SIZE;
     mbox[3] = 8;
     mbox[4] = 0;
-    mbox[5] = 1920;
-    mbox[6] = 1080;
+    mbox[5] = SCREENWIDTH;
+    mbox[6] = SCREENHEIGHT;
 
     mbox[7] = SET_VIRTUAL_SCREEN_SIZE;
     mbox[8] = 8;
     mbox[9] = 0;
-    mbox[10] = 1920;
-    mbox[11] = 1080;
+    mbox[10] = SCREENWIDTH;
+    mbox[11] = SCREENHEIGHT;
 
     mbox[12] = SET_DEPTH;
     mbox[13] = 4;
@@ -79,6 +79,7 @@ void frame_buffer_init() {
     uart_write_text("[DEBUG] Pitch: ", UART_NONE);
     uart_write_uint(mbox[24], UART_NEW_LINE);
     pitch = mbox[24];
+    num_pixels = (pitch/4)*SCREENHEIGHT;
     
     mbox[0] = 8*4;
     mbox[1] = 0;

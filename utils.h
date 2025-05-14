@@ -23,6 +23,10 @@ u32 make_color_struct(Color color);
 
 // Get Framebuffer Offset
 u32 get_fb_of(u32 x, u32 y);
+
 void draw_pixel(u32 x, u32 y, Color color);
 void draw_pixel_u32(u32 x, u32 y, u32 color);
+
+void clear_color(Color color);
+void clear_color_u32(u32 color);
 
