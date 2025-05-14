@@ -64,3 +64,24 @@ void clear_color_u32(u32 color) {
     }
 }
 
+u16 make_color_16bit(u32 r, u32 g, u32 b) {
+    return (r << 11) | (g << 5) | b;
+}
+
+void clear_color_16bit(u16 color) {
+    u16* ptr = (u16*)framebuffer;
+    u16* end = ptr + num_pixels;
+    
+    while (ptr + 3 < end) {
+        ptr[0] = color;
+        ptr[1] = color; 
+        ptr[2] = color; 
+        ptr[3] = color; 
+        ptr += 4;
+    }
+
+    while (ptr < end) {
+        *ptr++ = color;
+    }
+
+}

@@ -30,3 +30,5 @@ void draw_pixel_u32(u32 x, u32 y, u32 color);
 void clear_color(Color color);
 void clear_color_u32(u32 color);
 
+void clear_color_16bit(u16 color);
+u16 make_color_16bit(u32 r, u32 g, u32 b);

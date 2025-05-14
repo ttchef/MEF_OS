@@ -10,15 +10,15 @@ volatile unsigned int __attribute__((aligned(16))) mbox[30];
 unsigned int check_mailbox_response() {
     if (mbox[1] != MBOX_RESPONSE_SUCCESS) {
         if (uart_init_v && mbox[1] == 0) {
-        uart_write_text("[ERROR] Mailbox Sending Failed!", UART_NEW_LINE);
-        uart_write_text("[DEBUG] Mailbox Code: ", UART_NONE);
-        uart_write_uint(mbox[1], UART_NEW_LINE);
+            uart_write_text("[ERROR] Mailbox Sending Failed!", UART_NEW_LINE);
+            uart_write_text("[DEBUG] Mailbox Code: ", UART_NONE);
+            uart_write_uint(mbox[1], UART_NEW_LINE);
         }
 
         else if (uart_init_v && mbox[1] == MBOX_RESPONSE_PARSING_ERR) {
-        uart_write_text("[ERROR] Mailbox Sending Failed Parsing Error!", UART_NEW_LINE);
-        uart_write_text("[DEBUG] Mailbox Code: ", UART_NONE);
-        uart_write_uint(mbox[1], UART_NEW_LINE);
+            uart_write_text("[ERROR] Mailbox Sending Failed Parsing Error!", UART_NEW_LINE);
+            uart_write_text("[DEBUG] Mailbox Code: ", UART_NONE);
+            uart_write_uint(mbox[1], UART_NEW_LINE);
 
         }
         return 1;
@@ -49,7 +49,7 @@ void frame_buffer_init() {
     mbox[12] = SET_DEPTH;
     mbox[13] = 4;
     mbox[14] = 0;
-    mbox[15] = 32;
+    mbox[15] = DEPTH;
 
     mbox[16] = SET_VIRUTAL_OFFSET;
     mbox[17] = 8;
