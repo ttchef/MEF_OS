@@ -19,11 +19,16 @@ void main()
     u16 inc = 10;
 
     while (1) {
+        
+        start_bench();
+
         r+=inc;
         g+=inc;
         b+=inc;
 
         clear_color_u32(make_color(r, g, b));
+        uart_write_uint((u32)stop_bench(), UART_NEW_LINE);
+
         //wait_s(5);
     }
 

@@ -30,7 +30,7 @@ void draw_pixel_u32(u32 x, u32 y, u32 color) {
 void clear_color(Color color) {
     u32 color_u32 = make_color_struct(color);
 
-    u32 i;
+    u32 i = 0;
     for (; i+3 < num_pixels; i+=4) {
         framebuffer[i] = color_u32;
         framebuffer[i+1] = color_u32;
@@ -46,7 +46,7 @@ void clear_color(Color color) {
 
 void clear_color_u32(u32 color) {
 
-    u32 i;
+    u32 i = 0;
     for (; i+3 < num_pixels; i+=4) {
         framebuffer[i] = color;
         framebuffer[i+1] = color;
