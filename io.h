@@ -11,6 +11,20 @@ enum {
 
 };
 
+// GPIO
+enum {
+    GPIO_MAX_PIN       = 53,
+    GPIO_FUNCTION_ALT5 = 2,
+    GPIO_FUNCTION_OUT = 1,
+    GPIO_FUNCTION_IN = 0
+};
+
+// GPIO
+unsigned int gpio_set(unsigned int pin_number, unsigned int value);
+unsigned int gpio_clear(unsigned int pin_number, unsigned int value);
+unsigned int gpio_pull(unsigned int pin_number, unsigned int value);
+unsigned int gpio_function(unsigned int pin_number, unsigned int value);
+
 
 void mmio_write(long reg, unsigned int val);
 unsigned int mmio_read(long reg);

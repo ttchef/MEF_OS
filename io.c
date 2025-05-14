@@ -12,12 +12,6 @@ enum {
     GPPUPPDN0       = PERIPHERAL_BASE + 0x2000E4
 };
 
-enum {
-    GPIO_MAX_PIN       = 53,
-    GPIO_FUNCTION_ALT5 = 2,
-    GPIO_FUNCTION_OUT = 1,
-    GPIO_FUNCTION_IN = 0
-};
 
 enum {
     Pull_None = 0,
