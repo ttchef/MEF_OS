@@ -1,8 +1,8 @@
 
 CFILES = $(wildcard *.c)
 OFILES = $(CFILES:.c=.o)
-GCCFLAGS = -Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles
-GCCPATH = $(PWD)/arm-gnu-toolchain-14.2.rel1-x86_64-aarch64-none-elf/bin
+GCCFLAGS = -Wall -O3 -ffreestanding -nostdinc -nostdlib -nostartfiles
+GCCPATH = $(PWD)/cross_compiler/arm-gnu-toolchain-14.2.rel1-x86_64-aarch64-none-elf/bin
 
 all: clean kernel8.img
 
