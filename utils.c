@@ -2,7 +2,7 @@
 #include "utils.h"
 #include "globals.h"
 
-u32 make_color(u32 red, u32 green, u32 blue) {
+u32 make_color(u8 red, u8 green, u8 blue) {
     return (0xFF << 24) | (red << 16) | (green << 8) | blue;
 }
 
@@ -85,3 +85,4 @@ void clear_color_16bit(u16 color) {
     }
 
 }
+

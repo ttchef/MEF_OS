@@ -1,22 +1,24 @@
 
 // types
+typedef unsigned char u8;
 typedef unsigned short u16;
 typedef unsigned int u32;
 typedef unsigned long long u64;
 
+typedef char i8;
 typedef short i16;
 typedef int i32;
 typedef long long i64;
 
 typedef struct {
-    u16 r;
-    u16 b;
-    u16 g;
-    u16 a;
+    u8 r;
+    u8 b;
+    u8 g;
+    u8 a;
 } Color;
 
 // Color
-u32 make_color(u32 red, u32 green, u32 blue);
+u32 make_color(u8 red, u8 green, u8 blue);
 u32 make_color_a(u32 red, u32 green, u32 blue, u32 alpha);
 
 u32 make_color_struct(Color color);

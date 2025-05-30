@@ -2,7 +2,8 @@
 #include "io.h"
 #include "fb.h"
 #include "utils.h"
-#include "timer.h"
+#include "timer.h" 
+#include "dma.h"
 
 void main()
 {
@@ -18,9 +19,6 @@ void main()
     u16 b = 200;
     u16 inc = 10;
 
-    gpio_function(16, GPIO_FUNCTION_OUT);
-    gpio_set(16, 1);
-
     while (1) {
         
         start_bench();
@@ -32,7 +30,6 @@ void main()
         clear_color_u32(make_color(r, g, b));
         uart_write_uint((u32)stop_bench(), UART_NEW_LINE);
 
-        //wait_s(5);
     }
 
     wait_s(5);
