@@ -3,8 +3,13 @@
 #include "mb.h"
 #include "io.h"
 #include "globals.h"
+#include "memory.h"
+#include "utils.h"
 
 volatile unsigned int __attribute__((aligned(16))) mbox[30];
+unsigned int* fb_buffer1;
+unsigned int* fb_buffer2;
+unsigned int fb_size;
 
 // return 1 if error
 unsigned int check_mailbox_response() {
@@ -102,6 +107,26 @@ void frame_buffer_init() {
 
     uart_write_text("[DEBUG] Framebuffer Size: ", UART_NONE);
     uart_write_uint(mbox[6], UART_NEW_LINE);
+    fb_size = mbox[6];
+
+    // Create front and backbuffer
+    fb_buffer1 = (u32*)&__heap_start;
+    if (!(&__heap_start + fb_size > &__heap_end)) {
+        fb_buffer2 = (u32*)(&__heap_start + fb_size);
+    } 
+    else {
+        uart_write_text("[ERROR] Not enough Space in Heap to store framebuffers!", UART_NEW_LINE);
+    }
+
+
+    uart_write_text("[DEBUG] HEAP_SIZE: ", UART_NONE);
+    uart_write_uint(HEAP_SIZE, UART_NEW_LINE);
+
+    uart_write_text("[DEBUG] FB_1 Address: ", UART_NONE);
+    uart_write_uint((u64)&fb_buffer1 , UART_NEW_LINE);
+
+    uart_write_text("[DEBUG] FB_2 Address: ", UART_NONE);
+    uart_write_uint((u64)&fb_buffer2 , UART_NEW_LINE);
 
 
     uart_write_text("[DEBUG] FB Init finish!", UART_NEW_LINE);
