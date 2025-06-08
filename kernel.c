@@ -7,6 +7,10 @@
 
 void main()
 {
+    extern char __kernel_start;
+    uart_write_text("Kernel Start: ", UART_NONE);
+    uart_write_uint((u64)&__kernel_start, UART_NEW_LINE);
+
     uart_init(&uart_init_v);
 
     uart_write_text("[DEBUG] Init Kernel!", UART_NEW_LINE);
@@ -19,10 +23,7 @@ void main()
     u16 b = 200;
     u16 inc = 10;
 
-    // Test array 
-    volatile u32* array = (volatile u32*)0x04000000CULL;
-    u32 heap_size = 1000000;
-    array[heap_size/2] = 20;
+
 
 
     while (1) {

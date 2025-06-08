@@ -3,6 +3,8 @@ SECTIONS
 {
     . = 0x80000;     /* Kernel load address for AArch64 */
 
+    __kernel_start = .;
+
     .text : {
         /* Ensures that the _start is kept*/
         KEEP(*(.text.boot))
@@ -26,6 +28,12 @@ SECTIONS
         *(COMMON)
         __bss_end = .;
     }
+
+    . = ALIGN(16);
+    __heap_start = .;
+    . = . + 0x6400000; /* 100MB */ 
+    __heap_end = .;
+
     _end = .;
 
    /DISCARD/ : { *(.comment) *(.gnu*) *(.note*) *(.eh_frame*) }
