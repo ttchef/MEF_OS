@@ -1,6 +1,7 @@
 
 #include "utils.h"
 #include "globals.h"
+#include "fb.h"
 
 u32 make_color(u8 red, u8 green, u8 blue) {
     return (0xFF << 24) | (red << 16) | (green << 8) | blue;
@@ -30,7 +31,7 @@ void draw_pixel_u32(u32 x, u32 y, u32 color) {
 void clear_color(Color color) {
     u32 color_u32 = make_color_struct(color);
 
-    u32* ptr = framebuffer;
+    u32* ptr = fb_buffer1;
     u32* end = ptr + num_pixels;
     
     while (ptr + 3 < end) {
@@ -48,7 +49,7 @@ void clear_color(Color color) {
 }
 
 void clear_color_u32(u32 color) {
-    u32* ptr = framebuffer;
+    u32* ptr = fb_buffer1;
     u32* end = ptr + num_pixels;
     
     while (ptr + 3 < end) {

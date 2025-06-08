@@ -7,7 +7,7 @@
 #define DMA_TI_NO_WIDE_BURST    1 << 26 
 #define DMA_TI_WAITS            1 << 21
 #define DMA_TI_PERMAP           1 << 16 
-#define DMA_TI_BURST_LENGTH     1 << 12
+#define DMA_TI_BURST_LENGTH_SHIFT 1 << 12
 
 #define DMA_TI_SRC_INGNORE      1 << 11
 #define DMA_TI_SRC_DREQ         1 << 10 
@@ -50,7 +50,11 @@ dma_control_block dma_cb = {
 
 void dma_copy_to(void *source, void *destination, u32 length, u32 burst_length) {
     
-    dma_cb.transfer_info = (burst_length << DMA_TI_BURST_LENGTH)
+    // Reset dma 
+    mmio_write(DMA0_CS, DMA_CS_RESET);
+
+
+    dma_cb.transfer_info = (burst_length << DMA_TI_BURST_LENGTH_SHIFT)
                             | DMA_TI_SRC_WIDTH
                             | DMA_TI_DEST_WIDTH
                             | DMA_TI_DEST_INC;
@@ -70,7 +74,9 @@ void dma_copy_to(void *source, void *destination, u32 length, u32 burst_length) 
                     DMA_CS_ACTIVE
                 ));
 
-    
+    while (!(mmio_read(DMA0_CS) & DMA_CS_END));
+    mmio_write(DMA0_CS, DMA_CS_END);
+
 }
 
 

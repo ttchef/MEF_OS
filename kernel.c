@@ -1,9 +1,11 @@
 
+#include "globals.h"
 #include "io.h"
 #include "fb.h"
 #include "utils.h"
 #include "timer.h" 
 #include "dma.h"
+#include "memory.h"
 
 void main()
 {
@@ -33,6 +35,8 @@ void main()
         b+=inc;
 
         clear_color_u32(make_color(r, g, b));
+        dma_copy_to((u32*)BUS_ADDRESS((u32)fb_buffer1), framebuffer, fb_size, 32);
+
         //uart_write_uint((u32)stop_bench(), UART_NEW_LINE);
 
     }
