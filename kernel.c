@@ -19,6 +19,12 @@ void main()
     u16 b = 200;
     u16 inc = 10;
 
+    // Test array 
+    volatile u32* array = (volatile u32*)0x04000000CULL;
+    u32 heap_size = 1000000;
+    array[heap_size/2] = 20;
+
+
     while (1) {
         
         start_bench();
