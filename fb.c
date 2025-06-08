@@ -111,8 +111,12 @@ void frame_buffer_init() {
 
     // Create front and backbuffer
     fb_buffer1 = (u32*)&__heap_start;
-    if (!(&__heap_start + fb_size > &__heap_end)) {
-        fb_buffer2 = (u32*)(&__heap_start + fb_size);
+
+    u64 heap_start_addr = (u64)&__heap_start;
+    u64 heap_end_addr = (u64)&__heap_end;
+
+    if (heap_start_addr + fb_size < heap_end_addr) {
+        fb_buffer2 = (u32*)(heap_start_addr + fb_size);
     } 
     else {
         uart_write_text("[ERROR] Not enough Space in Heap to store framebuffers!", UART_NEW_LINE);
@@ -123,10 +127,10 @@ void frame_buffer_init() {
     uart_write_uint(HEAP_SIZE, UART_NEW_LINE);
 
     uart_write_text("[DEBUG] FB_1 Address: ", UART_NONE);
-    uart_write_uint((u64)&fb_buffer1 , UART_NEW_LINE);
+    uart_write_uint((u64)fb_buffer1 , UART_NEW_LINE);
 
     uart_write_text("[DEBUG] FB_2 Address: ", UART_NONE);
-    uart_write_uint((u64)&fb_buffer2 , UART_NEW_LINE);
+    uart_write_uint((u64)fb_buffer2 , UART_NEW_LINE);
 
 
     uart_write_text("[DEBUG] FB Init finish!", UART_NEW_LINE);

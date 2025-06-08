@@ -5,7 +5,7 @@
 extern char __heap_start;
 extern char __heap_end;
 
-#define HEAP_SIZE (__heap_end - __heap_start)
+#define HEAP_SIZE (&__heap_end - &__heap_start)
 
 extern char* memory_heap;
 
