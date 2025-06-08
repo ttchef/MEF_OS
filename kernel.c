@@ -28,7 +28,7 @@ void main()
 
     while (1) {
         
-        //start_bench();
+        start_bench();
 
         r+=inc;
         g+=inc;
@@ -37,7 +37,7 @@ void main()
         clear_color_u32(make_color(r, g, b));
         dma_copy_to((u32*)BUS_ADDRESS((u32)fb_buffer1), framebuffer, fb_size, 32);
 
-        //uart_write_uint((u32)stop_bench(), UART_NEW_LINE);
+        uart_write_uint((u32)stop_bench(), UART_NEW_LINE);
 
     }
 
