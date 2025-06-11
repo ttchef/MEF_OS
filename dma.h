@@ -1,4 +1,7 @@
 
+#ifndef DMA_H
+#define DMA_H
+
 #include "globals.h"
 
 enum {
@@ -48,4 +51,4 @@ extern dma_control_block dma_cb;
 
 void dma_copy_to(void *source, void *destination, unsigned int length, unsigned int burst_length);
 
-
+#endif

@@ -18,8 +18,7 @@ _start:
     ldr x1,=_start
     mov sp,x1
 
-    // Enable Caches
-    bl enable_caches
+
 
     // Clean bss section
     ldr x1,=__bss_start
@@ -33,15 +32,4 @@ _start:
     bl main
     // If main returns (kernel ends) enter infinite loop
     b 1b
-
-enable_caches:
-    mov  x2, #(1 << 12)        // I-cache
-    orr  x2, x2, #(1 << 2)     // D-cache
-    orr  x2, x2, #(1 << 11)    // Branch prediction
-    mrs  x0, sctlr_el1
-    orr  x0, x0, x2
-    msr  sctlr_el1, x0
-    dsb  ish
-    isb
-    ret
 

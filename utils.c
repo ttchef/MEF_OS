@@ -2,6 +2,7 @@
 #include "utils.h"
 #include "globals.h"
 #include "fb.h"
+#include "io.h"
 
 u32 make_color(u8 red, u8 green, u8 blue) {
     return (0xFF << 24) | (red << 16) | (green << 8) | blue;
@@ -31,10 +32,10 @@ void draw_pixel_u32(u32 x, u32 y, u32 color) {
 void clear_color(Color color) {
     u32 color_u32 = make_color_struct(color);
 
-    u32* ptr = fb_buffer1;
-    u32* end = ptr + num_pixels;
+    u64* ptr = fb_buffer1;
+    u64* end = ptr + num_pixels - 4;
     
-    while (ptr + 3 < end) {
+    while (ptr < end) {
         ptr[0] = color_u32;
         ptr[1] = color_u32; 
         ptr[2] = color_u32; 
@@ -48,21 +49,48 @@ void clear_color(Color color) {
 
 }
 
-void clear_color_u32(u32 color) {
-    u32* ptr = fb_buffer1;
-    u32* end = ptr + num_pixels;
+/*
+Time Spent debugging double buffering with virtual offset:
+- 2 Day 
+- 15 Hours
+*/
+void clear_color_u32(u32 color, u64* buffer) {
+
+    uart_write_text("\n\n[DEBUG] Beginn clear color drawing!\n", UART_NONE);
+
+    u64* ptr = buffer;
+    u64* end = ptr + (fb_size/8)/2;
+
+    uart_write_text("[DEBUG] buffer: ", UART_NONE);
+    uart_write_uint((u64)ptr, UART_NEW_LINE);
+    uart_write_text("[DEBUG] num_pixels: ", UART_NONE);
+    uart_write_uint(num_pixels, UART_NEW_LINE);
+    uart_write_text("[DEBUG] end: ", UART_NONE);
+    uart_write_uint((u64)end, UART_NEW_LINE);
+
     
     while (ptr + 3 < end) {
-        ptr[0] = color;
-        ptr[1] = color; 
-        ptr[2] = color; 
-        ptr[3] = color; 
+
+        if ((u64)ptr % 10000 == 0) {
+            uart_write_text("\n[DEBUG] ptr: ", UART_NONE);
+            uart_write_uint((u64)ptr, UART_NEW_LINE);
+        }
+
+
+        ptr[0] = (color << 32) | color;
+        ptr[1] = (color << 32) | color; 
+        ptr[2] = (color << 32) | color;
+        ptr[3] = (color << 32) | color;
         ptr += 4;
     }
 
+    uart_write_text("\n[DEBUG] Finsihed big thing!\n”", UART_NONE);
+
     while (ptr < end) {
-        *ptr++ = color;
+        *ptr++ = (color << 32) | color;
     }
+
+
 }
 
 u16 make_color_16bit(u32 r, u32 g, u32 b) {

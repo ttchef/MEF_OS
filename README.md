@@ -27,4 +27,10 @@ add breakpoints with: break main or break 0xXXXXXXX (memory address)
 you can see values of variables with p (VARIABLE_NAME)
 run the code till the next breakpoint with: continue
 
+---
+BTW the project requires specific hardware so dont even try to run it xD
+
+
+NOTE that QUEMU doesnt work anymore for new commits (only for very old ones) because it doesnt 
+support the features used in this os as emulation
 

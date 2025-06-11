@@ -6,11 +6,12 @@
 
 #define SCREENWIDTH 1920
 #define SCREENHEIGHT 1080
+#define VIRTUAL_SCREENWIDTH 1920 
+#define VIRTUAL_SCREENHEIGHT SCREENHEIGHT*2
 #define DEPTH 32
 
-#define FRAMEBUFFER_SIZE 8355840/4
 
-extern unsigned int* framebuffer;
+extern unsigned long long *framebuffer;
 
 extern unsigned int pitch;
 extern unsigned int num_pixels;
