@@ -56,26 +56,30 @@ Time Spent debugging double buffering with virtual offset:
 */
 void clear_color_u32(u32 color, u64* buffer) {
 
-    uart_write_text("\n\n[DEBUG] Beginn clear color drawing!\n", UART_NONE);
+    //uart_write_text("\n\n[DEBUG] Beginn clear color drawing!\n", UART_NONE);
 
     u64* ptr = buffer;
     u64* end = ptr + (fb_size/16);
 
+    /*
     uart_write_text("[DEBUG] buffer: ", UART_NONE);
     uart_write_uint((u64)ptr, UART_NEW_LINE);
     uart_write_text("[DEBUG] num_pixels: ", UART_NONE);
     uart_write_uint(num_pixels, UART_NEW_LINE);
     uart_write_text("[DEBUG] end: ", UART_NONE);
     uart_write_uint((u64)end, UART_NEW_LINE);
+    */
 
     u64 color64 = ((u64)color <<  32) | color;
 
     while (ptr + 4 <= end) {
 
+        /*
         if ((u64)ptr % 10000 == 0) {
             uart_write_text("\n[DEBUG] ptr: ", UART_NONE);
             uart_write_uint((u64)ptr, UART_NEW_LINE);
         }
+        */
 
 
         ptr[0] = color64;
@@ -85,7 +89,7 @@ void clear_color_u32(u32 color, u64* buffer) {
         ptr += 4;
     }
 
-    uart_write_text("\n[DEBUG] Finsihed big thing!\n”", UART_NONE);
+    //uart_write_text("\n[DEBUG] Finsihed big thing!\n”", UART_NONE);
 
     while (ptr < end) {
         *ptr++ = color64;

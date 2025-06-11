@@ -75,12 +75,12 @@ void frame_buffer_init() {
 
     uart_write_text("[DEBUG] Framebuffer before Write!", UART_NEW_LINE);
 
-    parse_mailbox_message(35);
+    //parse_mailbox_message(35);
 
     mbox_write((long)mbox, PROPERTY_TAG_ARM_GPU);
     mbox_read(PROPERTY_TAG_ARM_GPU);
 
-    parse_mailbox_message(35);
+    //parse_mailbox_message(35);
 
     if (check_mailbox_overall()) {
         return;
@@ -187,7 +187,7 @@ void set_virtual_offset(u32 x, u32 y) {
     mbox_write((long)mbox, PROPERTY_TAG_ARM_GPU);
     mbox_read(PROPERTY_TAG_ARM_GPU);
     
-    parse_mailbox_message(8);
+    //parse_mailbox_message(8);
 
     if (check_mailbox_overall()) {
         return;
@@ -211,7 +211,7 @@ Vec2 get_virtual_offset() {
     mbox_write((long)mbox, PROPERTY_TAG_ARM_GPU);
     mbox_read(PROPERTY_TAG_ARM_GPU);
     
-    parse_mailbox_message(8);
+    //parse_mailbox_message(8);
 
     if (check_mailbox_overall()) {
         return (Vec2){0,0};
@@ -237,7 +237,7 @@ Vec2 get_virtual_screen_dimensions() {
     mbox_write((long)mbox, PROPERTY_TAG_ARM_GPU);
     mbox_read(PROPERTY_TAG_ARM_GPU);
     
-    parse_mailbox_message(8);
+    //parse_mailbox_message(8);
 
     if (check_mailbox_overall()) {
         return (Vec2){0,0};

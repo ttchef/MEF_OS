@@ -18,13 +18,13 @@ unsigned int mbox_read(unsigned int channel) {
 
 void mbox_write(unsigned int data, unsigned int channel) {
  
-    uart_write_text("[DEBUG] Beginning MBOX Write!", UART_NEW_LINE);
+    //uart_write_text("[DEBUG] Beginning MBOX Write!", UART_NEW_LINE);
 
     unsigned int msg = (data & ~0xF) | (channel & 0xF);
 
     while(mmio_read(MBOX1_STATUS) & MBOX_FULL);
 
-    uart_write_text("[DEBUG] MBOX Write After Loop!", UART_NEW_LINE);
+    //uart_write_text("[DEBUG] MBOX Write After Loop!", UART_NEW_LINE);
 
     mmio_write(MBOX1, msg);
     
