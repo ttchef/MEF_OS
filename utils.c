@@ -77,17 +77,17 @@ void clear_color_u32(u32 color, u64* buffer) {
         }
 
 
-        ptr[0] = (color << 32) | color;
-        ptr[1] = (color << 32) | color; 
-        ptr[2] = (color << 32) | color;
-        ptr[3] = (color << 32) | color;
+        ptr[0] = ((u64)color << 32) | color;
+        ptr[1] = ((u64)color << 32) | color; 
+        ptr[2] = ((u64)color << 32) | color;
+        ptr[3] = ((u64)color << 32) | color;
         ptr += 4;
     }
 
     uart_write_text("\n[DEBUG] Finsihed big thing!\n”", UART_NONE);
 
     while (ptr < end) {
-        *ptr++ = (color << 32) | color;
+        *ptr++ = ((u64)color << 32) | color;
     }
 
 
