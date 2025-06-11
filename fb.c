@@ -6,7 +6,7 @@
 #include "memory.h"
 #include "utils.h"
 
-volatile unsigned int __attribute__((aligned(16))) mbox[30];
+volatile unsigned int __attribute__((aligned(16))) mbox[35];
 u64* fb_buffer1;
 u64* fb_buffer2;
 u32 fb_size;

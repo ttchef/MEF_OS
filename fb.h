@@ -4,7 +4,7 @@
 
 #include "utils.h"
 
-extern volatile unsigned int __attribute__((aligned(16))) mbox[30];
+extern volatile unsigned int __attribute__((aligned(16))) mbox[35];
 
 extern unsigned long long *fb_buffer1;
 extern unsigned long long *fb_buffer2;
