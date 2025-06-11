@@ -111,7 +111,7 @@ void frame_buffer_init() {
 
 
     fb_buffer1 = framebuffer;
-    fb_buffer2 = framebuffer + SCREENWIDTH*SCREENHEIGHT;
+    fb_buffer2 = framebuffer + (SCREENWIDTH*SCREENHEIGHT)/2;
 
     uart_write_text("[DEBUG] Framebuffer Size: ", UART_NONE);
     uart_write_uint(mbox[29], UART_NEW_LINE);

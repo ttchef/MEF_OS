@@ -51,7 +51,7 @@ void clear_color(Color color) {
 
 /*
 Time Spent debugging double buffering with virtual offset:
-- 2 Day 
+- 3 Day 
 - 15 Hours
 */
 void clear_color_u32(u32 color, u64* buffer) {
@@ -59,7 +59,7 @@ void clear_color_u32(u32 color, u64* buffer) {
     uart_write_text("\n\n[DEBUG] Beginn clear color drawing!\n", UART_NONE);
 
     u64* ptr = buffer;
-    u64* end = ptr + (fb_size/8)/2;
+    u64* end = ptr + (fb_size/16);
 
     uart_write_text("[DEBUG] buffer: ", UART_NONE);
     uart_write_uint((u64)ptr, UART_NEW_LINE);
@@ -68,8 +68,9 @@ void clear_color_u32(u32 color, u64* buffer) {
     uart_write_text("[DEBUG] end: ", UART_NONE);
     uart_write_uint((u64)end, UART_NEW_LINE);
 
-    
-    while (ptr + 3 < end) {
+    u64 color64 = ((u64)color <<  32) | color;
+
+    while (ptr + 4 <= end) {
 
         if ((u64)ptr % 10000 == 0) {
             uart_write_text("\n[DEBUG] ptr: ", UART_NONE);
@@ -77,17 +78,17 @@ void clear_color_u32(u32 color, u64* buffer) {
         }
 
 
-        ptr[0] = ((u64)color << 32) | color;
-        ptr[1] = ((u64)color << 32) | color; 
-        ptr[2] = ((u64)color << 32) | color;
-        ptr[3] = ((u64)color << 32) | color;
+        ptr[0] = color64;
+        ptr[1] = color64;
+        ptr[2] = color64;
+        ptr[3] = color64;
         ptr += 4;
     }
 
     uart_write_text("\n[DEBUG] Finsihed big thing!\n”", UART_NONE);
 
     while (ptr < end) {
-        *ptr++ = ((u64)color << 32) | color;
+        *ptr++ = color64;
     }
 
 
