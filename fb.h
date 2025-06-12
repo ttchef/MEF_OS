@@ -15,8 +15,10 @@ extern unsigned long long *fb_buffer1;
 extern unsigned long long *fb_buffer2;
 extern unsigned int fb_size;
 extern unsigned int buffer_one_active;
+extern unsigned int pitch;
+extern unsigned int num_pixels;
 
-void frame_buffer_init();
+void framebuffer_init();
 void set_virtual_offset(unsigned int x, unsigned int y);
 unsigned long long* swap_buffers();
 

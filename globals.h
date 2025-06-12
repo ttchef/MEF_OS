@@ -10,11 +10,5 @@
 #define VIRTUAL_SCREENHEIGHT SCREENHEIGHT*2
 #define DEPTH 32
 
-
-extern unsigned long long *framebuffer;
-
-extern unsigned int pitch;
-extern unsigned int num_pixels;
-
 #endif
 

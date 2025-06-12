@@ -7,11 +7,13 @@
 #include "utils.h"
 
 volatile unsigned int __attribute__((aligned(16))) mbox[35];
+
 u64* fb_buffer1;
 u64* fb_buffer2;
 u32 buffer_one_active;
 u32 fb_size;
-
+u32 num_pixels;
+u32 pitch;
 
 // DEBUG
 u32 parse_main_message();
@@ -23,11 +25,10 @@ u32 parse_mailbox_message(u32 size);
 // Getters & Setters
 void set_virtual_offset(u32 x, u32 y);
 Vec2 get_virtual_offset();
-
 Vec2 get_virtual_screen_dimensions();
 
 
-void frame_buffer_init() {
+void framebuffer_init() {
 
     buffer_one_active = 1;
 
@@ -88,10 +89,8 @@ void frame_buffer_init() {
     num_pixels = SCREENWIDTH*SCREENHEIGHT;
 
     // Framebuffer 
-    framebuffer = (u64*)BUS_ADDRESS(mbox[28]);
-
-    fb_buffer1 = framebuffer;
-    fb_buffer2 = framebuffer + (SCREENWIDTH*SCREENHEIGHT)/2;
+    fb_buffer1 = (u64*)BUS_ADDRESS(mbox[28]);
+    fb_buffer2 = fb_buffer1 + (SCREENWIDTH*SCREENHEIGHT)/2;
     fb_size = mbox[29];
 
     uart_write_text("[DEBUG] Framebuffer: ", UART_NONE);

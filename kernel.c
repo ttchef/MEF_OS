@@ -9,16 +9,8 @@
 
 void main()
 {
-    /*
-    extern char __kernel_start;
-    uart_write_text("[DEBUG] Kernel Start: ", UART_NONE);
-    uart_write_uint((u64)&__kernel_start, UART_NEW_LINE);
-    */
-
-    uart_write_text("[DEBUG] Init Kernel!", UART_NEW_LINE);
-
     uart_init(&uart_init_v);
-    frame_buffer_init();
+    framebuffer_init();
 
     u16 r = 100;
     u16 g = 0;
