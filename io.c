@@ -82,6 +82,7 @@ void uart_init(unsigned int* init) {
     mmio_write(AUX_MU_CNTL_REG, 3); //enable RX/TX
 
     *init = 1;
+    uart_write_text("[DEBUG] Init UART!", UART_NEW_LINE);
 }
 
 unsigned int uart_is_write_byte_ready() { return mmio_read(AUX_MU_LSR_REG) & 0x20; }

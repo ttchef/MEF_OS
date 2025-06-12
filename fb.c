@@ -9,7 +9,9 @@
 volatile unsigned int __attribute__((aligned(16))) mbox[35];
 u64* fb_buffer1;
 u64* fb_buffer2;
+u32 buffer_one_active;
 u32 fb_size;
+
 
 // DEBUG
 u32 parse_main_message();
@@ -27,7 +29,9 @@ Vec2 get_virtual_screen_dimensions();
 
 void frame_buffer_init() {
 
-    uart_write_text("[DEBUG] Framebuffer Beginning!", UART_NEW_LINE);
+    buffer_one_active = 1;
+
+    uart_write_text("[DEBUG] Init Framebuffer Beginning!", UART_NEW_LINE);
 
     // Set Screen properties 
     mbox[0] = 35*4;
@@ -80,60 +84,47 @@ void frame_buffer_init() {
         return;
     }
 
+    pitch = mbox[24];
+    num_pixels = SCREENWIDTH*SCREENHEIGHT;
+
+    // Framebuffer 
+    framebuffer = (u64*)BUS_ADDRESS(mbox[28]);
+
+    fb_buffer1 = framebuffer;
+    fb_buffer2 = framebuffer + (SCREENWIDTH*SCREENHEIGHT)/2;
+    fb_size = mbox[29];
+
+    uart_write_text("[DEBUG] Framebuffer: ", UART_NONE);
+    uart_write_uint(mbox[28], UART_NEW_LINE);
+
+    uart_write_text("[DEBUG] Framebuffer Size: ", UART_NONE);
+    uart_write_uint(mbox[29], UART_NEW_LINE);
+
     uart_write_text("[DEBUG] Mailbox Code: ", UART_NONE);
     uart_write_uint(mbox[1], UART_NEW_LINE);
 
     uart_write_text("[DEBUG] Pitch: ", UART_NONE);
     uart_write_uint(mbox[24], UART_NEW_LINE);
 
-    uart_write_text("[DEBUG] Virtual Height Response: ", UART_NONE);
-    uart_write_uint(mbox[11], UART_NEW_LINE);
+  
 
-    if (mbox[11] != 2160) {
-        uart_write_text("[WARNING] Virtual height not set to 2160!", UART_NEW_LINE);
-        uart_write_text("[WARNING] Using returned value: ", UART_NONE);
-        uart_write_uint(mbox[11], UART_NEW_LINE);
+    // Virtual Resolution
+    u32 virtual_screen_height = get_virtual_screen_dimensions().y;
+    uart_write_text("[DEBUG] Vitrual Screenheight: ", UART_NONE);
+    uart_write_uint(virtual_screen_height, UART_NEW_LINE);
+
+    // Pixel Order
+    u32 pixel_order = get_pixel_order();
+    uart_write_text("[DEBUG] Pixel Order: ", UART_NONE);
+    if (pixel_order == 1) {
+        uart_write_text("BGR", UART_NEW_LINE);
+    } 
+    else if (pixel_order == 2) {
+        uart_write_text("RGB", UART_NEW_LINE);
     }
-
-    pitch = mbox[24];
-    num_pixels = SCREENWIDTH*SCREENHEIGHT;
-
-    // Framebuffer 
-    uart_write_text("[DEBUG] Framebuffer: ", UART_NONE);
-    uart_write_uint(mbox[28], UART_NEW_LINE);
-    framebuffer = (u64*)BUS_ADDRESS(mbox[28]);
-
-
-    fb_buffer1 = framebuffer;
-    fb_buffer2 = framebuffer + (SCREENWIDTH*SCREENHEIGHT)/2;
-
-    uart_write_text("[DEBUG] Framebuffer Size: ", UART_NONE);
-    uart_write_uint(mbox[29], UART_NEW_LINE);
-    fb_size = mbox[29];
-
-    // VIRTUAL SCREEN DIMENSIONS
-    
-    uart_write_text("[DEBUG] Vitrual Screendimensions: ", UART_NONE);
-    uart_write_uint(mbox[10], UART_NONE);
-    uart_write_text(" | ", UART_NONE);
-    uart_write_uint(mbox[11], UART_NEW_LINE);
-
-    if (mbox[9] == MBOX_RESPONSE_SUCCESS + 8) {
-        uart_write_text("[DEBUG] Virtual Screenresolution set successfully", UART_NEW_LINE);
-    } else if (mbox[9] == 8) {
-        uart_write_text("[ERROR] Failed setting virtual screenresolution", UART_NEW_LINE);
-    } else if (mbox[9] == 0) {
-        uart_write_text("[ERROR] Failed virual screenresolution == 0", UART_NEW_LINE);
-    } else {
-        uart_write_text("[ERROR] Set Virtual Screenresolution mbox[9] == ", UART_NONE);
-        uart_write_uint(mbox[9], UART_NEW_LINE);
+    else {
+        uart_write_text("\n[ERROR] Getting Pixel Order!", UART_NEW_LINE);
     }
-
-    // -------------
-
-
-    uart_write_text("[DEBUG] HEAP_SIZE: ", UART_NONE);
-    uart_write_uint(HEAP_SIZE, UART_NEW_LINE);
 
     uart_write_text("[DEBUG] FB_1 Address: ", UART_NONE);
     uart_write_uint((u64)fb_buffer1 , UART_NEW_LINE);
@@ -144,8 +135,18 @@ void frame_buffer_init() {
 
     uart_write_text("[DEBUG] FB Init finish!", UART_NEW_LINE);
 
-    validate_framebuffer();
+}
 
+u64* swap_buffers() {
+    if (buffer_one_active == 1) {
+        set_virtual_offset(0, 0);
+        buffer_one_active = 0;
+        return fb_buffer2;
+    } else {
+        set_virtual_offset(0, SCREENHEIGHT);
+        buffer_one_active = 1;
+        return fb_buffer1;
+    }
 }
 
 u32 get_pixel_order() {

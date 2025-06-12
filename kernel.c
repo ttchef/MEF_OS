@@ -7,8 +7,6 @@
 #include "dma.h"
 #include "memory.h"
 
-u32 buffer_one_active = 1;
-
 void main()
 {
     /*
@@ -20,26 +18,7 @@ void main()
     uart_write_text("[DEBUG] Init Kernel!", UART_NEW_LINE);
 
     uart_init(&uart_init_v);
-
-    uart_write_text("[DEBUG] Init UART!", UART_NEW_LINE);
-
     frame_buffer_init();
-
-    u32 virtual_screen_height = get_virtual_screen_dimensions().y;
-    uart_write_text("[DEBUG] Vitrual Screenheight: ", UART_NONE);
-    uart_write_uint(virtual_screen_height, UART_NEW_LINE);
-
-    u32 pixel_order = get_pixel_order();
-    uart_write_text("[DEBUG] Pixel Order: ", UART_NONE);
-    if (pixel_order == 1) {
-        uart_write_text("BGR", UART_NEW_LINE);
-    } 
-    else if (pixel_order == 2) {
-        uart_write_text("RGB", UART_NEW_LINE);
-    }
-    else {
-        uart_write_text("\n[ERROR] Getting Pixel Order!", UART_NEW_LINE);
-    }
 
     u16 r = 100;
     u16 g = 0;
@@ -51,17 +30,12 @@ void main()
         start_bench();
 
         r+=inc;
+    
+        u64* buffer = swap_buffers();
+        clear_color_u32(make_color(r, g, b), buffer);
+        
 
-        if (buffer_one_active == 1) {
-            clear_color_u32(make_color(r, g, b), fb_buffer1);
-            set_virtual_offset(0, 0);
-            buffer_one_active = 0;
-        } else {
-            clear_color_u32(make_color(r, g, b), fb_buffer2);
-            set_virtual_offset(0, SCREENHEIGHT);
-            buffer_one_active = 1;
-        }
-
+       
         uart_write_uint(stop_bench(), UART_NEW_LINE);
 
     }

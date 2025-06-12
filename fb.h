@@ -14,9 +14,11 @@ extern volatile unsigned int __attribute__((aligned(16))) mbox[35];
 extern unsigned long long *fb_buffer1;
 extern unsigned long long *fb_buffer2;
 extern unsigned int fb_size;
+extern unsigned int buffer_one_active;
 
 void frame_buffer_init();
 void set_virtual_offset(unsigned int x, unsigned int y);
+unsigned long long* swap_buffers();
 
 // Helper functions
 Vec2 get_virtual_offset();
