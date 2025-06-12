@@ -7,6 +7,8 @@ Get the AArch64 bare-metal target (aarch64-none-elf) from [Arm GNU Compiler](htt
 Put it in a folder called "cross_compiler" and unzip it 
 You should be good to go
 
+# UART and Emulation
+
 For qemu testing get qemu with:
 ```sudo apt install qemu-system-arm```
 
