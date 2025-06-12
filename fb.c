@@ -67,21 +67,15 @@ void frame_buffer_init() {
     mbox[28] = 16;
     mbox[29] = 0;
 
-
     mbox[30] = END_TAG;
 
     // Padding
     mbox[31] = 0; mbox[32] = 0; mbox[33] = 0; mbox[34] = 0;
 
-    uart_write_text("[DEBUG] Framebuffer before Write!", UART_NEW_LINE);
-
-    //parse_mailbox_message(35);
-
     mbox_write((long)mbox, PROPERTY_TAG_ARM_GPU);
     mbox_read(PROPERTY_TAG_ARM_GPU);
 
-    //parse_mailbox_message(35);
-
+    // Error checking
     if (check_mailbox_overall()) {
         return;
     }
@@ -138,23 +132,6 @@ void frame_buffer_init() {
     // -------------
 
 
-    /*
-
-    // Create front and backbuffer
-    fb_buffer1 = (u32*)&__heap_start;
-
-    u64 heap_start_addr = (u64)&__heap_start;
-    u64 heap_end_addr = (u64)&__heap_end;
-
-    if (heap_start_addr + fb_size < heap_end_addr) {
-        fb_buffer2 = (u32*)(heap_start_addr + fb_size);
-    } 
-    else {
-        uart_write_text("[ERROR] Not enough Space in Heap to store framebuffers!", UART_NEW_LINE);
-    }
-
-    */
-
     uart_write_text("[DEBUG] HEAP_SIZE: ", UART_NONE);
     uart_write_uint(HEAP_SIZE, UART_NEW_LINE);
 
@@ -168,6 +145,29 @@ void frame_buffer_init() {
     uart_write_text("[DEBUG] FB Init finish!", UART_NEW_LINE);
 
     validate_framebuffer();
+
+}
+
+u32 get_pixel_order() {
+    mbox[0] = 7*4;
+    mbox[1] = 0;
+
+    mbox[2] = GET_PIXEL_ORDER;
+    mbox[3] = 4;
+    mbox[4] = 0;
+    mbox[5] = 0;
+
+    mbox[6] = END_TAG;
+ 
+    mbox_write((long)mbox, PROPERTY_TAG_ARM_GPU);
+    mbox_read(PROPERTY_TAG_ARM_GPU);
+    
+    if (check_mailbox_overall()) {
+        uart_write_text("[ERROR] Parsing \"Get Pixel Order Mailbox\"\n", UART_NONE);
+        return 0;
+    }
+
+    return mbox[5]+1; // 1 -> BGR | 2 -> RGB
 
 }
 

@@ -4,6 +4,11 @@
 
 #include "utils.h"
 
+enum {
+    FB_PIXEL_ORDER_BGR = 0x0,
+    FB_PIXEL_ORDER_RGB = 0x1
+};
+
 extern volatile unsigned int __attribute__((aligned(16))) mbox[35];
 
 extern unsigned long long *fb_buffer1;
@@ -13,7 +18,7 @@ extern unsigned int fb_size;
 void frame_buffer_init();
 void set_virtual_offset(unsigned int x, unsigned int y);
 
-// DEBUG 
+// Helper functions
 Vec2 get_virtual_offset();
 Vec2 get_virtual_screen_dimensions();
 
@@ -23,7 +28,7 @@ void test_virtual_screen_heights();
 unsigned int check_mailbox_overall();
 unsigned int parse_mailbox_message(u32 size);
 
-// ---
+unsigned int get_pixel_order();
 
 #endif 
 

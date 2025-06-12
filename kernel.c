@@ -17,9 +17,10 @@ void main()
     uart_write_uint((u64)&__kernel_start, UART_NEW_LINE);
     */
 
+    uart_write_text("[DEBUG] Init Kernel!", UART_NEW_LINE);
+
     uart_init(&uart_init_v);
 
-    uart_write_text("[DEBUG] Init Kernel!", UART_NEW_LINE);
     uart_write_text("[DEBUG] Init UART!", UART_NEW_LINE);
 
     frame_buffer_init();
@@ -28,19 +29,28 @@ void main()
     uart_write_text("[DEBUG] Vitrual Screenheight: ", UART_NONE);
     uart_write_uint(virtual_screen_height, UART_NEW_LINE);
 
-    u16 r = 0;
-    u16 g = 100;
-    u16 b = 200;
-    u16 inc = 10;
+    u32 pixel_order = get_pixel_order();
+    uart_write_text("[DEBUG] Pixel Order: ", UART_NONE);
+    if (pixel_order == 1) {
+        uart_write_text("BGR", UART_NEW_LINE);
+    } 
+    else if (pixel_order == 2) {
+        uart_write_text("RGB", UART_NEW_LINE);
+    }
+    else {
+        uart_write_text("\n[ERROR] Getting Pixel Order!", UART_NEW_LINE);
+    }
+
+    u16 r = 100;
+    u16 g = 0;
+    u16 b = 0;
+    u16 inc = 1;
 
     while (1) {
         
         start_bench();
 
         r+=inc;
-        g+=inc;
-        b+=inc;
-    
 
         if (buffer_one_active == 1) {
             clear_color_u32(make_color(r, g, b), fb_buffer1);

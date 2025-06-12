@@ -8,7 +8,7 @@ u32 make_color(u8 red, u8 green, u8 blue) {
     return (0xFF << 24) | (red << 16) | (green << 8) | blue;
 }
 
-u32 make_color_a(u32 red, u32 green, u32 blue, u32 alpha) {
+u32 make_color_a(u8 red, u8 green, u8 blue, u8 alpha) {
     return (alpha << 24) | (red << 16) | (green << 8) | blue;
 }
 
@@ -21,7 +21,7 @@ u32 get_fb_of(u32 x, u32 y) {
     return (y * pitch / 4) + x;
 }
 
-void draw_pixel(u32 x, u32 y, Color color) {
+void draw_pixel_struct(u32 x, u32 y, Color color) {
     framebuffer[(y*pitch/4)+x] = make_color_struct(color); 
 }
 
