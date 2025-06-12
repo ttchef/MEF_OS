@@ -19,4 +19,3 @@ kernel8.img: boot.o $(OFILES)
 
 clean:
 	/bin/rm kernel8.elf *.o *.img > /dev/null 2> /dev/null || true
-

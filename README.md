@@ -31,6 +31,12 @@ run the code till the next breakpoint with: continue
 BTW the project requires specific hardware so dont even try to run it xD
 
 
-NOTE that QUEMU doesnt work anymore for new commits (only for very old ones) because it doesnt 
-support the features used in this os as emulation
+# FEATURES
+- GPIO Pins Control 
+- UART sending 
+- Mailbox Messages
+- Framebuffer
+- Timers
+- Double Buffering
+
 
