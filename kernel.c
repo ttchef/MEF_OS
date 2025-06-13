@@ -2,7 +2,6 @@
 #include "globals.h"
 #include "io.h"
 #include "fb.h"
-#include "utils.h"
 #include "timer.h" 
 #include "dma.h"
 #include "memory.h"
@@ -13,8 +12,8 @@ void main()
     framebuffer_init();
 
     u16 r = 100;
-    u16 g = 0;
-    u16 b = 0;
+    u16 g = 200;
+    u16 b = 150;
     u16 inc = 1;
 
     while (1) {
@@ -22,9 +21,18 @@ void main()
         start_bench();
 
         r+=inc;
+        g+=inc;
+        b+=inc;
 
-        Color color = {r, g, b};
-        clear_color(color);
+        clear_color((Color){35, 55, 187});
+
+        Color color = {200, 25, 55};
+        draw_char('M', 0, 0, color);
+        draw_char('A', 10, 0, color);
+        draw_char('T', 20, 0, color);
+        draw_char('T', 30, 0, color);
+        draw_char('E', 40, 0, color);
+        draw_char('F', 50, 0, color);
 
         swap_buffers();
 

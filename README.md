@@ -45,5 +45,6 @@ BTW the project requires specific hardware so dont even try to run it xD
 - Framebuffer
 - Timers
 - Double Buffering
+- Font Rendering
 
 

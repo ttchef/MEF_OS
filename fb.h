@@ -28,10 +28,9 @@ void swap_buffers();
 
 // Utils
 u32 get_fb_of(u32 x, u32 y);
-void draw_pixel_struct(u32 x, u32 y, Color color, u64 *buffer);
-void draw_pixel_u32(u32 x, u32 y, u32 color, u64 *buffer);
+void draw_pixel(u32 x, u32 y, Color color);
 
-
+void draw_char(char c, u32 x, u32 y, Color color);
 void clear_color(Color color);
 
 // Helper functions
