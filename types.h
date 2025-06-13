@@ -14,8 +14,8 @@ typedef long long i64;
 
 typedef struct {
     u8 r;
-    u8 b;
     u8 g;
+    u8 b;
     u8 a;
 } Color;
 

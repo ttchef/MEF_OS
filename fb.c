@@ -147,23 +147,21 @@ u32 get_fb_of(u32 x, u32 y) {
 }
 
 void draw_pixel(u32 x, u32 y, Color color) {
-    active_buffer[(y*pitch/4)+x] = CONVERT_COLOR_STRUCT(color); 
+    ((u32*)active_buffer)[(y*pitch/4)+x] = CONVERT_COLOR_STRUCT(color);
 }
-
 
 
 void draw_char(char c, u32 x, u32 y, Color color) {
     char* bitmap = font_buffer[c];
     i32 set;
     i32 mask;
-    for (u8 i = 0; i < 8; i++) {
-        for (u8 j = 0; j < 8; j++) {
+    for (u16 i = 0; i < 8; i++) {
+        for (u16 j = 0; j < 8; j++) {
             set = bitmap[i] & 1 << j;
             if (set) {
-                draw_pixel(x+j, y, color);
+                draw_pixel(x+j, y+i, color);
             } 
         }
-        y++;
     }
 }
 
