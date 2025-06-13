@@ -4,7 +4,6 @@
 #include "io.h"
 #include "globals.h"
 #include "memory.h"
-#include "utils.h"
 
 volatile unsigned int __attribute__((aligned(16))) mbox[35];
 
@@ -26,6 +25,9 @@ u32 parse_mailbox_message(u32 size);
 void set_virtual_offset(u32 x, u32 y);
 Vec2 get_virtual_offset();
 Vec2 get_virtual_screen_dimensions();
+
+#define CONVERT_COLOR_STRUCT(color) \
+    ((color.a << 24) | (color.r << 16) | (color.g << 8) | color.b)
 
 
 void framebuffer_init() {
@@ -134,6 +136,48 @@ void framebuffer_init() {
     uart_write_text("[DEBUG] FB Init finish!", UART_NEW_LINE);
 
 }
+
+u32 get_fb_of(u32 x, u32 y) {
+    return (y * pitch / 4) + x;
+}
+
+void draw_pixel_struct(u32 x, u32 y, Color color, u64 *buffer) {
+    buffer[(y*pitch/4)+x] = CONVERT_COLOR_STRUCT(color); 
+}
+
+void draw_pixel_u32(u32 x, u32 y, u32 color, u64* buffer) {
+    buffer[(y*pitch/4)+x] = color;
+}
+
+
+/*
+Time Spent debugging double buffering with virtual offset:
+- 3 Day 
+- 15 Hours
+*/
+void clear_color(Color color, u64 *buffer) {
+
+    u64* ptr = buffer;
+    u64* end = ptr + (fb_size/16);
+    u32 color32 = CONVERT_COLOR_STRUCT(color);
+    u64 color64 = ((u64)color32 <<  32) | color32;
+
+    while (ptr + 4 <= end) {
+
+        ptr[0] = color64;
+        ptr[1] = color64;
+        ptr[2] = color64;
+        ptr[3] = color64;
+        ptr += 4;
+    }
+
+    while (ptr < end) {
+        *ptr++ = color64;
+    }
+
+}
+
+
 
 u64* swap_buffers() {
     if (buffer_one_active == 1) {

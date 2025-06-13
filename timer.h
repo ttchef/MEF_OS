@@ -2,6 +2,10 @@
 #ifndef TIMER_H
 #define TIMER_H
 
+#ifndef TYPES_H
+#include "types.h"
+#endif
+
 enum {
     TIMER_BASE = 0xFE003000,
     TIMER_CLO = TIMER_BASE + 0x04,

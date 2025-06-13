@@ -4,6 +4,10 @@
 
 #include "globals.h"
 
+#ifndef TYPES_H
+#include "types.h"
+#endif
+
 enum {
     DMA_BASE        = PERIPHERAL_BASE + 0x00007000,
     DMA0_CS         = DMA_BASE + 0x000,

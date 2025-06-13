@@ -2,6 +2,10 @@
 #ifndef MEMORY_H
 #define MEMORY_H 
 
+#ifndef TYPES_H
+#include "types.h"
+#endif
+
 extern char __heap_start;
 extern char __heap_end;
 
