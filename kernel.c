@@ -22,10 +22,11 @@ void main()
         start_bench();
 
         r+=inc;
-    
-        u64* buffer = swap_buffers();
+
         Color color = {r, g, b};
-        clear_color(color, buffer);
+        clear_color(color);
+
+        swap_buffers();
 
         uart_write_uint(stop_bench(), UART_NEW_LINE);
 

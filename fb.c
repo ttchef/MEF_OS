@@ -9,10 +9,12 @@ volatile unsigned int __attribute__((aligned(16))) mbox[35];
 
 u64* fb_buffer1;
 u64* fb_buffer2;
-u32 buffer_one_active;
 u32 fb_size;
 u32 num_pixels;
 u32 pitch;
+
+u64 *active_buffer;
+u32 buffer_one_active;
 
 // DEBUG
 u32 parse_main_message();
@@ -92,6 +94,7 @@ void framebuffer_init() {
 
     // Framebuffer 
     fb_buffer1 = (u64*)BUS_ADDRESS(mbox[28]);
+    active_buffer = fb_buffer1;
     fb_buffer2 = fb_buffer1 + (SCREENWIDTH*SCREENHEIGHT)/2;
     fb_size = mbox[29];
 
@@ -155,12 +158,12 @@ Time Spent debugging double buffering with virtual offset:
 - 3 Day 
 - 15 Hours
 */
-void clear_color(Color color, u64 *buffer) {
+void clear_color(Color color) {
 
-    u64* ptr = buffer;
+    u64* ptr = active_buffer;
     u64* end = ptr + (fb_size/16);
     u32 color32 = CONVERT_COLOR_STRUCT(color);
-    u64 color64 = ((u64)color32 <<  32) | color32;
+    u64 color64 = ((u64)color32 << 32) | color32;
 
     while (ptr + 4 <= end) {
 
@@ -177,17 +180,15 @@ void clear_color(Color color, u64 *buffer) {
 
 }
 
-
-
-u64* swap_buffers() {
+void swap_buffers() {
     if (buffer_one_active == 1) {
         set_virtual_offset(0, 0);
         buffer_one_active = 0;
-        return fb_buffer2;
+        active_buffer = fb_buffer2;
     } else {
         set_virtual_offset(0, SCREENHEIGHT);
         buffer_one_active = 1;
-        return fb_buffer1;
+        active_buffer = fb_buffer1;
     }
 }
 
