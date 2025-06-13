@@ -27,12 +27,16 @@ void main()
         clear_color((Color){35, 55, 187});
 
         Color color = {200, 25, 55};
+        draw_string("Mattef", 0, 0, color, 10);
+
+        /*
         draw_char('M', 0, 0, color, 4);
         draw_char('A', 40, 0, color, 4);
         draw_char('T', 80, 0, color, 4);
         draw_char('T', 120, 0, color, 4);
         draw_char('E', 160, 0, color, 4);
         draw_char('F', 200, 0, color, 4);
+        */
 
         swap_buffers();
 

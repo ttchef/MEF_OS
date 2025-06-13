@@ -150,7 +150,6 @@ void draw_pixel(u32 x, u32 y, Color color) {
     ((u32*)active_buffer)[(y*pitch/4)+x] = CONVERT_COLOR_STRUCT(color);
 }
 
-
 void draw_char(char c, u32 x, u32 y, Color color, u32 scale) {
     char* bitmap = font_buffer[c];
     i32 set;
@@ -162,6 +161,15 @@ void draw_char(char c, u32 x, u32 y, Color color, u32 scale) {
                 draw_pixel(x+j, y+i, color);
             } 
         }
+    }
+}
+
+void draw_string(char *string, u32 x, u32 y, Color color, u32 scale) {
+    u32 i = 0;
+    while (*string != '\0') {
+        draw_char(*string, x+i, y, color, scale);
+        i += FONT_WIDTH * scale;
+        string++;
     }
 }
 
