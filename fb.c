@@ -106,7 +106,6 @@ void framebuffer_init() {
     uart_write_uint(mbox[24], UART_NEW_LINE);
 
   
-
     // Virtual Resolution
     u32 virtual_screen_height = get_virtual_screen_dimensions().y;
     uart_write_text("[DEBUG] Vitrual Screenheight: ", UART_NONE);

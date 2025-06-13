@@ -24,17 +24,15 @@ void main()
         r+=inc;
     
         u64* buffer = swap_buffers();
-        clear_color_u32(make_color(r, g, b), buffer);
-        
+        Color color = {r, g, b};
+        clear_color(color, buffer);
 
-       
         uart_write_uint(stop_bench(), UART_NEW_LINE);
 
     }
 
     wait_s(5);
     uart_write_text("[DEBUG] Kernel Loop!", UART_NEW_LINE);
-
 
     while(1);
 }

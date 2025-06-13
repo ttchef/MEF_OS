@@ -4,17 +4,8 @@
 #include "fb.h"
 #include "io.h"
 
-u32 make_color(u8 red, u8 green, u8 blue) {
-    return (0xFF << 24) | (red << 16) | (green << 8) | blue;
-}
-
-u32 make_color_a(u8 red, u8 green, u8 blue, u8 alpha) {
-    return (alpha << 24) | (red << 16) | (green << 8) | blue;
-}
-
-u32 make_color_struct(Color color) {
-    return (color.a << 24) | (color.r << 16) | (color.g << 8) | color.b;
-}
+#define CONVERT_COLOR_STRUCT(color) \
+    ((color.a << 24) | (color.r << 16) | (color.g << 8) | color.b)
 
 
 u32 get_fb_of(u32 x, u32 y) {
@@ -22,7 +13,7 @@ u32 get_fb_of(u32 x, u32 y) {
 }
 
 void draw_pixel_struct(u32 x, u32 y, Color color, u64 *buffer) {
-    buffer[(y*pitch/4)+x] = make_color_struct(color); 
+    buffer[(y*pitch/4)+x] = CONVERT_COLOR_STRUCT(color); 
 }
 
 void draw_pixel_u32(u32 x, u32 y, u32 color, u64* buffer) {
@@ -35,11 +26,12 @@ Time Spent debugging double buffering with virtual offset:
 - 3 Day 
 - 15 Hours
 */
-void clear_color_u32(u32 color, u64 *buffer) {
+void clear_color(Color color, u64 *buffer) {
 
     u64* ptr = buffer;
     u64* end = ptr + (fb_size/16);
-    u64 color64 = ((u64)color <<  32) | color;
+    u32 color32 = CONVERT_COLOR_STRUCT(color);
+    u64 color64 = ((u64)color32 <<  32) | color32;
 
     while (ptr + 4 <= end) {
 
