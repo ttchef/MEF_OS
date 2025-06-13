@@ -151,13 +151,13 @@ void draw_pixel(u32 x, u32 y, Color color) {
 }
 
 
-void draw_char(char c, u32 x, u32 y, Color color) {
+void draw_char(char c, u32 x, u32 y, Color color, u32 scale) {
     char* bitmap = font_buffer[c];
     i32 set;
     i32 mask;
-    for (u16 i = 0; i < 8; i++) {
-        for (u16 j = 0; j < 8; j++) {
-            set = bitmap[i] & 1 << j;
+    for (u16 i = 0; i < (FONT_HEIGHT*scale); i++) {
+        for (u16 j = 0; j < (FONT_WIDTH*scale); j++) {
+            set = bitmap[i/scale] & 1 << j/scale;
             if (set) {
                 draw_pixel(x+j, y+i, color);
             } 

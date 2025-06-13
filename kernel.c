@@ -27,16 +27,18 @@ void main()
         clear_color((Color){35, 55, 187});
 
         Color color = {200, 25, 55};
-        draw_char('M', 0, 0, color);
-        draw_char('A', 10, 0, color);
-        draw_char('T', 20, 0, color);
-        draw_char('T', 30, 0, color);
-        draw_char('E', 40, 0, color);
-        draw_char('F', 50, 0, color);
+        draw_char('M', 0, 0, color, 4);
+        draw_char('A', 40, 0, color, 4);
+        draw_char('T', 80, 0, color, 4);
+        draw_char('T', 120, 0, color, 4);
+        draw_char('E', 160, 0, color, 4);
+        draw_char('F', 200, 0, color, 4);
 
         swap_buffers();
 
         uart_write_uint(stop_bench(), UART_NEW_LINE);
+
+        wait_ms(100);
 
     }
 
