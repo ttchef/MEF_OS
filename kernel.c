@@ -27,7 +27,8 @@ void main()
         clear_color((Color){35, 55, 187});
 
         Color color = {200, 25, 55};
-        draw_string("Mattef", 0, 0, color, 10);
+        draw_string("MEF OS", 30, 30, color, 10);
+        draw_string("By Jens & Mef", 70 , 150, color, 5);
 
         /*
         draw_char('M', 0, 0, color, 4);
