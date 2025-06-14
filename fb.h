@@ -30,6 +30,7 @@ void swap_buffers();
 u32 get_fb_of(u32 x, u32 y);
 void draw_pixel(u32 x, u32 y, Color color);
 
+void draw_text(Text text);
 void draw_string(char* string, u32 x, u32 y, Color color, u32 scale);
 void draw_char(char c, u32 x, u32 y, Color color, u32 scale);
 void clear_color(Color color);

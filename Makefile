@@ -4,8 +4,6 @@ OFILES = $(CFILES:.c=.o)
 GCCFLAGS = -Wall -g -O3 -ffreestanding -nostdinc -nostdlib -nostartfiles  # -g is only for debug symbols remove later
 GCCPATH = $(PWD)/cross_compiler/arm-gnu-toolchain-14.2.rel1-x86_64-aarch64-none-elf/bin
 
-DIRS = kernel, raycaster
-
 all: clean kernel8.img
 
 boot.o: boot.S
@@ -21,3 +19,4 @@ kernel8.img: boot.o $(OFILES)
 
 clean:
 	/bin/rm kernel8.elf *.o *.img > /dev/null 2> /dev/null || true
+

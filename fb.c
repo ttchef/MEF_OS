@@ -6,6 +6,7 @@
 #include "memory.h"
 #include "font.h"
 #include "types.h"
+#include "string.h"
 
 volatile unsigned int __attribute__((aligned(16))) mbox[35];
 
@@ -170,6 +171,28 @@ void draw_string(char *string, u32 x, u32 y, Color color, u32 scale) {
         draw_char(*string, x+i, y, color, scale);
         i += FONT_WIDTH * scale;
         string++;
+    }
+}
+
+void draw_text(Text text) {
+    u32 i = 0;
+    if (text.orientation == TOP_LEFT) {
+        while (*text.string != '\0') {
+            draw_char(*text.string, text.pos.x+i, text.pos.y, text.color, text.scale);
+            i += FONT_WIDTH * text.scale;
+            text.string++;
+        }
+    }
+    else if (text.orientation == CENTER) {
+        u32 length = strlen(text.string);
+        if (length % 2) i = text.pos.x - (length/2+0.5) * FONT_WIDTH * text.scale;           
+        else i = text.pos.x - (length/2) * FONT_WIDTH * text.scale;
+
+        while(*text.string != '\0') {
+            draw_char(*text.string, i, text.pos.y - FONT_HEIGHT/2*text.scale, text.color, text.scale);
+            i += FONT_WIDTH * text.scale;
+            text.string++; 
+        }
     }
 }
 

@@ -1,10 +1,13 @@
 
+#include "font.h"
 #include "globals.h"
 #include "io.h"
 #include "fb.h"
 #include "timer.h" 
 #include "dma.h"
 #include "memory.h"
+#include "types.h"
+#include "string.h"
 
 void main()
 {
@@ -27,17 +30,11 @@ void main()
         clear_color((Color){35, 55, 187});
 
         Color color = {200, 25, 55};
-        draw_string("MEF OS", 30, 30, color, 10);
-        draw_string("By Jens & Mef", 70 , 150, color, 5);
+        Text text = (Text){"Schroch", (Vec2){SCREENWIDTH/2,SCREENHEIGHT/2}, 10, color, CENTER};
+        draw_text(text);
 
-        /*
-        draw_char('M', 0, 0, color, 4);
-        draw_char('A', 40, 0, color, 4);
-        draw_char('T', 80, 0, color, 4);
-        draw_char('T', 120, 0, color, 4);
-        draw_char('E', 160, 0, color, 4);
-        draw_char('F', 200, 0, color, 4);
-        */
+        //draw_string("MEF OS", 30, 30, color, 10);
+        //draw_string("By Jens & Mef", SCREENWIDTH/2 , SCREENHEIGHT/2, color, 5);
 
         swap_buffers();
 

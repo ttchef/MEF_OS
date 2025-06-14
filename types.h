@@ -2,6 +2,10 @@
 #ifndef TYPES_H
 #define TYPES_H
 
+#ifndef FONT_H
+#include "font.h"
+#endif
+
 typedef unsigned char u8;
 typedef unsigned short u16;
 typedef unsigned int u32;
@@ -29,6 +33,16 @@ typedef struct {
     u32 y;
     u32 z;
 } Vec3;
+
+typedef struct {
+    char* string;
+    Vec2 pos;
+    u32 scale;
+    Color color;
+    enum FONT_ORIENT orientation;
+} Text;
+
+
 
 #endif
 
