@@ -148,7 +148,11 @@ u32 get_fb_of(u32 x, u32 y) {
 }
 
 void draw_pixel(u32 x, u32 y, Color color) {
-    ((u32*)active_buffer)[(y*pitch/4)+x] = CONVERT_COLOR_STRUCT(color);
+ 
+    if (x < 0 || x > SCREENWIDTH-1 || y < 0 || y > SCREENHEIGHT-1) return;
+
+    ((u32*)active_buffer)[(y*(pitch/4))+x] = CONVERT_COLOR_STRUCT(color);
+    
 }
 
 void draw_char(char c, u32 x, u32 y, Color color, u32 scale) {
@@ -198,7 +202,7 @@ void draw_text(Text text) {
 
 /*
 Time Spent debugging double buffering with virtual offset:
-- 3 Day 
+- 3 Days
 - 15 Hours
 */
 void clear_color(Color color) {

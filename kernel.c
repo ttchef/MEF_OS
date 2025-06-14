@@ -18,6 +18,7 @@ void main()
     u16 g = 200;
     u16 b = 150;
     u16 inc = 1;
+    volatile u32 posx = 800;
 
     while (1) {
         
@@ -30,11 +31,28 @@ void main()
         clear_color((Color){35, 55, 187});
 
         Color color = {200, 25, 55};
-        Text text = (Text){"Schroch", (Vec2){SCREENWIDTH/2,SCREENHEIGHT/2}, 10, color, CENTER};
+        Text text = {"Schroch", (Vec2){posx++,SCREENHEIGHT/2}, 10, color, CENTER};
         draw_text(text);
 
-        //draw_string("MEF OS", 30, 30, color, 10);
-        //draw_string("By Jens & Mef", SCREENWIDTH/2 , SCREENHEIGHT/2, color, 5);
+
+        /*
+        char buffer2[100];
+        //text_format(buffer2, "Yoo epic test number in hex: %x\n", 5);
+        uart_write_text(buffer2, UART_NONE);
+
+        char buffer3[100];
+        //text_format(buffer3, "Yoo epic test number in binary: %b\n", 5);
+        uart_write_text(buffer3, UART_NONE);
+
+        char buffer4[100];
+        //text_format(buffer4, "Yoo epic character test: %c\n", 'A');
+        uart_write_text(buffer4, UART_NONE);
+
+        char buffer5[100];
+        //text_format(buffer5, "Yoo epic character test: %%\n");
+        uart_write_text(buffer5, UART_NONE);
+*/
+
 
         swap_buffers();
 

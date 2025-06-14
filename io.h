@@ -41,5 +41,7 @@ void uart_write_text(char *buffer, unsigned int flags);
 void uart_write_uint(unsigned int n, unsigned int flags);
 void uart_write_int(int n, unsigned int flags);
 
+void printf(const char* fmt, ...);
+
 #endif 
 

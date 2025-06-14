@@ -2,6 +2,8 @@
 #include "io.h"
 #include "globals.h"
 
+#include <stdarg.h>
+
 unsigned int uart_init_v;
 
 // GPIO
@@ -93,7 +95,7 @@ void uart_write_char(unsigned char ch) {
 }
 
 void uart_write_text(char *buffer, unsigned int flags) {
-    while (*buffer) {
+    while (*buffer != '\0') {
        if (*buffer == '\n') uart_write_char('\r');
        uart_write_char(*buffer++);
     }
