@@ -38,11 +38,13 @@ void main()
         u32 i = uart_get_input(buffer, sizeof(buffer));
         uart_print_receive(buffer, i);
 
+        
         swap_buffers();
+
+        wait_ms(16);
 
         //uart_write_uint(stop_bench(), UART_NEW_LINE);
 
-        wait_ms(100);
 
     }
 

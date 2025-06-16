@@ -39,6 +39,8 @@ run the code till the next breakpoint with: continue
 ---
 BTW the project requires specific hardware so dont even try to run it xD
 
+# Credits
+- uses bitfield font from: [font](https://github.com/dhepper/font8x8.git)
 
 # FEATURES
 - GPIO Pins Control 
