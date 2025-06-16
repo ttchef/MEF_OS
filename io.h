@@ -37,9 +37,12 @@ void uart_update();
 void uart_loadOutputFifo();
 void uart_init(unsigned int* init);
 
+void uart_write_char(unsigned char c);
 void uart_write_text(char *buffer, unsigned int flags);
 void uart_write_uint(unsigned int n, unsigned int flags);
 void uart_write_int(int n, unsigned int flags);
+unsigned int uart_get_input(char *buffer, unsigned int size); // return 1 if input is there 0 if not
+void uart_wait_for_input(char *buffer, unsigned int size);
 
 void printf(char* string, ...);
 

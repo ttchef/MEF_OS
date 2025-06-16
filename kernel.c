@@ -22,7 +22,7 @@ void main()
 
     while (1) {
         
-        start_bench();
+        //start_bench();
 
         r+=inc;
         g+=inc;
@@ -34,16 +34,16 @@ void main()
         Text text = {"Schroch", (Vec2){posx++,SCREENHEIGHT/2}, 10, color, CENTER};
         draw_text(text);
     
-        printf("Test printf: %d\n", 10);
-        printf("Mann printf: %x\n", 10);
-        printf("Binar printf: %b\n", 10);
-        printf("Einfach text: %s\n", "Yooo");
-        printf("Prozent?: %%\n");
-        printf("ich glabe das ist nicht unterstüzt: %a\n", 10);
-       
+        char buffer[100] __attribute__((aligned(16)));
+        u32 i = uart_get_input(buffer, sizeof(buffer));
+        for (u32 j = 0; j < i; j++) {
+            uart_write_char(buffer[j]);
+        }
+        uart_write_char('\n');
+
         swap_buffers();
 
-        uart_write_uint(stop_bench(), UART_NEW_LINE);
+        //uart_write_uint(stop_bench(), UART_NEW_LINE);
 
         wait_ms(100);
 

@@ -158,7 +158,39 @@ void uart_write_int(int n, unsigned int flags) {
 
 }
 
+u32 uart_get_input(char *buffer, unsigned int size) {
+    u32 i = 0;
 
+    while (i < size - 1) {
+        if (!(mmio_read(AUX_MU_LSR_REG) & 1)) {
+            break;
+        }
+
+        char c = mmio_read(AUX_MU_IO_REG) & 0xFF;
+        buffer[i++] = c;
+    }
+
+    buffer[i] = '\0';
+    return i;
+
+}
+
+void uart_wait_for_input(char *buffer, unsigned int size) {
+    u32 i = 0;
+
+    while (i < size - 1) {
+        // wait till input is there
+        while(!(mmio_read(AUX_MU_LSR_REG) & 1));
+
+        char c = mmio_read(AUX_MU_IO_REG) & 0xFF;
+        buffer[i++] = c;
+    }
+
+    buffer[i] = '\0';
+ 
+}
+
+// basically pretty similar to text_format in string.c
 void printf(char* string, ...) {
     
     va_list vlist;
