@@ -248,4 +248,13 @@ void printf(char* string, ...) {
 
 }
 
+void uart_print_receive(char *buffer, unsigned int size) {
+    if (size == 0) return;
+
+    for (u32 i = 0; i < size; i++) {
+        uart_write_char(buffer[i]);
+    }
+    uart_write_char('\n');
+    uart_write_char('\r');
+}
 

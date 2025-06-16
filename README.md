@@ -43,6 +43,7 @@ BTW the project requires specific hardware so dont even try to run it xD
 # FEATURES
 - GPIO Pins Control 
 - UART sending 
+- UART receiving
 - Mailbox Messages
 - Framebuffer
 - Timers

@@ -45,6 +45,7 @@ unsigned int uart_get_input(char *buffer, unsigned int size); // return 1 if inp
 void uart_wait_for_input(char *buffer, unsigned int size);
 
 void printf(char* string, ...);
+void uart_print_receive(char *buffer, unsigned int size);
 
 #endif 
 

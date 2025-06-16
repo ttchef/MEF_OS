@@ -36,10 +36,7 @@ void main()
     
         char buffer[100] __attribute__((aligned(16)));
         u32 i = uart_get_input(buffer, sizeof(buffer));
-        for (u32 j = 0; j < i; j++) {
-            uart_write_char(buffer[j]);
-        }
-        uart_write_char('\n');
+        uart_print_receive(buffer, i);
 
         swap_buffers();
 
