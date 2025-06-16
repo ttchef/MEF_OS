@@ -25,7 +25,7 @@ void itoa_dec(i32 value, char *buffer) {
 
     if (value < 0) {
         negative = 1;
-        value = -value;
+        value *= -1;
     }
 
     while (value) {
@@ -33,7 +33,12 @@ void itoa_dec(i32 value, char *buffer) {
         value /= 10;
     }
 
+
     i32 j = 0;
+    if (negative) {
+        buffer[j++] = '-';   
+    }
+
     while (i--) {
         buffer[j++] = temp[i];
     }
@@ -99,7 +104,7 @@ void itoa_bin(u32 value, char *buffer) {
 
 }
 
-char* text_format(char* out, const char* string, ...) {
+void text_format(char* out, const char* string, ...) {
 
     va_list vlist;
     va_start(vlist, string);

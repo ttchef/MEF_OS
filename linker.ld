@@ -28,12 +28,7 @@ SECTIONS
         *(COMMON)
         __bss_end = .;
     }
-
-    . = ALIGN(16);
-    __stack_start = .;
-    . = . + 0x100000; /* 1MB Stack*/ 
-    __stack_end = .;
-
+    
     . = ALIGN(16);
     __heap_start = .;
     . = . + 0x6400000; /* 100MB */ 

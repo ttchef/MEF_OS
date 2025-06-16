@@ -14,7 +14,7 @@ _start:
 // On the main core
 2:
     // Set stack below this code
-    ldr x1, =__stack_end
+    ldr x1, =_start
     mov sp, x1
 
     msr sp_el0, x1
