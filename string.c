@@ -85,21 +85,19 @@ void itoa_bin(u32 value, char *buffer) {
         return;
     }
 
-    u32 i = 0;
-    for (; i < 32; i++) {
-        if (value & (1 << i)) {
-            temp[i] = '1';
-            continue;
-        }
-        temp[i] = '0';
-    }
-
     u32 j = 0;
+    i32 bit = 31;
     buffer[j++] = '0';
     buffer[j++] = 'b';
-    while (j-2 <= i) {
-        buffer[j++] = temp[i];
+
+    while (bit >= 0 && ((value >> bit) & 1) == 0) {
+        bit--;
     }
+
+    for (; bit >= 0; bit--) {
+        buffer[j++] = ((value >> bit) & 1) ? '1' : '0';
+    }
+
     buffer[j] = '\0';
 
 }

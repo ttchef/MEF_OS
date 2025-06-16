@@ -1,25 +1,0 @@
-[DEBUG] Init UART!
-[DEBUG] Init Framebuffer Beginning!
-[DEBUG] Framebuffer: 4257382400
-[DEBUG] Framebuffer Size: 16588800
-[DEBUG] Mailbox Code: 2147483648
-[DEBUG] Pitch: 7680
-[DEBUG] Vitrual Screenheight: 2160
-[DEBUG] Pixel Order: BGR
-[DEBUG] FB_1 Address: 1036156928
-[DEBUG] FB_2 Address: 1044451328
-[DEBUG] FB Init finish!
-[DEBUG] Init UART!
-[DEBUG] Init Framebuffer Beginning!
-[DEBUG] Framebuffer: 4257382400
-[DEBUG] Framebuffer Size: 16588800
-[DEBUG] Mailbox Code: 2147483648
-[DEBUG] Pitch: 7680
-[DEBUG] Vitrual Screenheight: 2160
-[DEBUG] Pixel Order: BGR
-[DEBUG] FB_1 Address: 1036156928
-[DEBUG] FB_2 Address: 1044451328
-[DEBUG] FB Init finish!
-Yoo epic test number in hex: 0x5
-Yoo epic test number in binary: 0b	
- !"#
