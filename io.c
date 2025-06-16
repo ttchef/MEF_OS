@@ -1,6 +1,7 @@
 
 #include "io.h"
 #include "globals.h"
+#include "string.h"
 
 #include <stdarg.h>
 
@@ -156,4 +157,63 @@ void uart_write_int(int n, unsigned int flags) {
     }
 
 }
+
+
+void printf(char* string, ...) {
+    
+    va_list vlist;
+    va_start(vlist, string);
+
+    while (*string != '\0') {
+        if (*string == '\n') {
+            uart_write_char('\r');
+        }
+        if (*string == '%') {
+            string++;
+            char temp[32];
+            switch (*string) {
+                case 's': {
+                    char* str = va_arg(vlist, char*);
+                    while (*str != '\0') uart_write_char(*str++);
+                    break;
+                }
+                case 'd': {
+                    i32 num = va_arg(vlist, i32);
+                    itoa_dec(num, temp);
+                    char* t = temp;
+                    while (*t != '\0') uart_write_char(*t++);
+                    break;
+                }
+                case 'x': {
+                    u32 num = va_arg(vlist, u32);
+                    itoa_hex(num, temp);
+                    char* t = temp;
+                    while (*t != '\0') uart_write_char(*t++);
+                    break;
+                }
+                case 'b': {
+                    u32 num = va_arg(vlist, u32);
+                    itoa_bin(num, temp);
+                    char* t = temp;
+                    while (*t != '\0') uart_write_char(*t++);
+                    break;
+                }
+                case '%': {
+                    uart_write_char('%');
+                    break;
+                }
+                default:
+                    uart_write_char('?');
+            }
+        }
+        else {
+            uart_write_char(*string);
+        }
+        string++;
+    }
+
+    va_end(vlist);
+
+}
+
 
