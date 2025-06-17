@@ -18,7 +18,7 @@ _start:
     mov sp, x1
 
     msr sp_el0, x1
-    
+
     // Clean bss section
     ldr x1, =__bss_start
     ldr w2, =__bss_size
