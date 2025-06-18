@@ -1,3 +1,4 @@
+
 .section ".text.boot"
 .global _start
 
@@ -14,12 +15,13 @@ _start:
 // On the main core
 2:
     // Set stack below this code
-    ldr x1, =_start
+    ldr x1, =__stack_end
     mov sp, x1
 
-    msr sp_el0, x1
+    // setup mmu
+    bl enable_mmu
 
-    // Clean bss section
+    // Clean bss sectin
     ldr x1, =__bss_start
     ldr w2, =__bss_size
 3:  cbz w2, 4f

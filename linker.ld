@@ -30,6 +30,11 @@ SECTIONS
     }
     
     . = ALIGN(16);
+    __stack_start = .;
+    . = . + 0xf4240;
+    __stack_end = .;
+
+    . = ALIGN(16);
     __heap_start = .;
     . = . + 0x6400000; /* 100MB */ 
     __heap_end = .;

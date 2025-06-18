@@ -15,7 +15,7 @@ void main()
     uart_init(&uart_init_v);
     framebuffer_init();
 
-    printf("[DEBUG] Exception Level: %d\n", get_current_el());
+    //printf("[DEBUG] Exception Level: %d\n", get_current_el());
 
     u16 r = 100;
     u16 g = 200;
