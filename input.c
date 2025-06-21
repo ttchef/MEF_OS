@@ -1,12 +1,14 @@
 
+#ifndef INPUT_H 
 #include "input.h"
+#endif 
+
+#ifndef IO_H
 #include "io.h"
+#endif
 
-u32 input_check_key_pressed(u32 key) {
-    char buffer[10];
-    u32 k = uart_get_input(buffer, 10);
-
-    for (u32 i = 0; i < k; i++) {
+u32 input_check_key_pressed(char key, char *buffer, u32 size) {
+    for (u32 i = 0; i < size; i++) {
         if ((u8)buffer[i] == key) {
             return 1;
         }

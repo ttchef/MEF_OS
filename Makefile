@@ -2,7 +2,7 @@
 CFILES = $(wildcard *.c)
 OFILES = $(CFILES:.c=.o)
 
-GCCFLAGS = -Wall -g -ffreestanding -nostdlib -nostartfiles 
+GCCFLAGS = -Wall -g -ffreestanding -nostdlib -nostartfiles -o2
 
 GCCPATH = $(PWD)/cross_compiler/arm-gnu-toolchain-14.2.rel1-x86_64-aarch64-none-elf/bin
 

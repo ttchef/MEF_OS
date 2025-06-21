@@ -21,6 +21,7 @@ extern u32 map[];
 void rc_init();
 void rc_display();
 void rc_draw_player();
+void rc_get_input();
 
 #endif
 

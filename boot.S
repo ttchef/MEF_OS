@@ -19,7 +19,7 @@ _start:
     mov sp, x1
 
     // setup mmu
-    bl enable_mmu
+    //bl enable_mmu
 
     // Clean bss sectin
     ldr x1, =__bss_start

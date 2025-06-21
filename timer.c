@@ -43,4 +43,10 @@ u64 stop_bench_s() {
     return (bench_current_time - bench_last_time) / 1000000;
 }
 
+u64 stop_bench_us() {
+    bench_current_time = get_system_timer();
+    return (bench_current_time - bench_last_time);
+
+}
+
 

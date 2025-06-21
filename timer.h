@@ -18,6 +18,7 @@ void wait_ms(unsigned long long n);
 void wait_s(unsigned long long n);
 
 void start_bench();
+unsigned long long stop_bench_us();
 unsigned long long stop_bench();
 unsigned long long stop_bench_s();
 

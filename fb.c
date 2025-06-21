@@ -31,9 +31,6 @@ void set_virtual_offset(u32 x, u32 y);
 Vec2 get_virtual_offset();
 Vec2 get_virtual_screen_dimensions();
 
-#define CONVERT_COLOR_STRUCT(color) \
-    ((color.a << 24) | (color.r << 16) | (color.g << 8) | color.b)
-
 
 void framebuffer_init() {
 
@@ -98,7 +95,7 @@ void framebuffer_init() {
     // Framebuffer 
     fb_buffer1 = (u64*)BUS_ADDRESS(mbox[28]);
     active_buffer = fb_buffer1;
-    fb_buffer2 = fb_buffer1 + (SCREENWIDTH*SCREENHEIGHT)/2;
+    fb_buffer2 = (u64*)(((u32*)fb_buffer1) + SCREENWIDTH*SCREENHEIGHT);
     fb_size = mbox[29];
 
     uart_write_text("[DEBUG] Framebuffer: ", UART_NONE);
@@ -147,13 +144,6 @@ u32 get_fb_of(u32 x, u32 y) {
     return (y * pitch / 4) + x;
 }
 
-void draw_pixel(u32 x, u32 y, Color color) {
- 
-    if (x < 0 || x > SCREENWIDTH-1 || y < 0 || y > SCREENHEIGHT-1) return;
-
-    ((u32*)active_buffer)[(y*(pitch/4))+x] = CONVERT_COLOR_STRUCT(color);
-    
-}
 
 void draw_rect(u32 x, u32 y, u32 width, u32 height, Color color, enum FONT_ORIENT orientation) {
     if (orientation == TOP_LEFT) {
@@ -251,13 +241,15 @@ void clear_color(Color color) {
 
 void swap_buffers() {
     if (buffer_one_active == 1) {
-        set_virtual_offset(0, 0);
-        buffer_one_active = 0;
-        active_buffer = fb_buffer2;
+        // Buffer 1 wird angezeigt, also zeichne in Buffer 2
+        set_virtual_offset(0, 0);           // Buffer 1 anzeigen (Y=0)
+        buffer_one_active =00;              // Buffer 1 ist aktiv (angezeigt)
+        active_buffer = fb_buffer2;         // Zeichne in Buffer 2
     } else {
-        set_virtual_offset(0, SCREENHEIGHT);
-        buffer_one_active = 1;
-        active_buffer = fb_buffer1;
+        // Buffer 2 wird angezeigt, also zeichne in Buffer 1  
+        set_virtual_offset(0, SCREENHEIGHT); // Buffer 2 anzeigen (Y=SCREENHEIGHT)
+        buffer_one_active = 1;              // Buffer 2 ist aktiv (angezeigt)
+        active_buffer = fb_buffer1;         // Zeichne in Buffer 1
     }
 }
 
@@ -286,6 +278,9 @@ u32 get_pixel_order() {
 
 
 void set_virtual_offset(u32 x, u32 y) {
+    
+    while(mmio_read(MBOX1_STATUS) & MBOX_FULL);
+
     mbox[0] = 8*4;
     mbox[1] = 0;
         
