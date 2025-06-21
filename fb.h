@@ -6,6 +6,10 @@
 #include "types.h"
 #endif
 
+#ifndef FONT_H
+#include "font.h"
+#endif
+
 enum {
     FB_PIXEL_ORDER_BGR = 0x0,
     FB_PIXEL_ORDER_RGB = 0x1
@@ -29,6 +33,7 @@ void swap_buffers();
 // Utils
 u32 get_fb_of(u32 x, u32 y);
 void draw_pixel(u32 x, u32 y, Color color);
+void draw_rect(u32 x, u32 y, u32 width, u32 height, Color color, enum FONT_ORIENT orientation);
 
 void draw_text(Text text);
 void draw_string(char* string, u32 x, u32 y, Color color, u32 scale);

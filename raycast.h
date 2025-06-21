@@ -10,22 +10,13 @@
 #include "globals.h"
 #endif
 
-float px,py; // player pos
+extern float px,py; // player pos
 
-const u32 mapX = 8;
-const u32 mapY = 8;
-const u32 mapSize = mapX * mapY;
+extern const u32 mapX;
+extern const u32 mapY;
+extern const u32 mapSize;
 
-u32 map[] = {
-    1,1,1,1,1,1,1,1,
-    1,0,1,0,0,0,0,1,
-    1,0,1,0,0,0,0,1,
-    1,0,1,0,0,0,0,1,
-    1,0,0,0,0,0,0,1,
-    1,0,0,0,0,1,0,1,
-    1,0,0,0,0,0,0,1,
-    1,1,1,1,1,1,1,1,
-};
+extern u32 map[];
 
 void rc_init();
 void rc_display();

@@ -155,6 +155,28 @@ void draw_pixel(u32 x, u32 y, Color color) {
     
 }
 
+void draw_rect(u32 x, u32 y, u32 width, u32 height, Color color, enum FONT_ORIENT orientation) {
+    if (orientation == TOP_LEFT) {
+        for (u32 i = 0; i < width; i++) {
+            for (u32 j = 0; j < height; j++) {
+                draw_pixel(x+i, y+j, color);
+            }
+        }
+    }
+    else if (orientation == CENTER) {
+        u32 newX = x - (width/2);
+        u32 newY = y - (height/2);
+        for (u32 i = 0; i < width; i++) {
+            for (u32 j = 0; j < height; j++) {
+                draw_pixel(newX+i, newY+j, color);
+            }
+        }
+    }
+    else {
+        printf("[ERROR] Unkown rectangle orientation specified!\n");
+    }
+}
+
 void draw_char(char c, u32 x, u32 y, Color color, u32 scale) {
     char* bitmap = font_buffer[c];
     i32 set;
