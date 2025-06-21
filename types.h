@@ -16,6 +16,10 @@ typedef short i16;
 typedef int i32;
 typedef long long i64;
 
+#define RGB_RED (Color){255,0,0};
+#define RGB_GREEN (Color){0,255,0};
+#define RGB_BLUE (Color){0,0,255};
+
 typedef struct {
     u8 r;
     u8 g;
