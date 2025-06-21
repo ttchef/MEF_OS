@@ -21,7 +21,9 @@ void main()
     rc_init();
 
     while (1) {
-            
+        
+        rc_display();
+
         swap_buffers();
 
     }
