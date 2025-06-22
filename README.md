@@ -4,7 +4,7 @@ A very limited OS designed to (not yet) render a raycaster.
 
 ![Starting](res/pics/mef_os.png)
 
-![Raycaster](res/pics/raycaster.png)
+![Raycaster](./res/pics/raycaster.png)
 
 # Compiling
 Get the AArch64 bare-metal target (aarch64-none-elf) from [Arm GNU Compiler](https://developer.arm.com/downloads/-/gnu-a)
