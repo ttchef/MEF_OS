@@ -65,7 +65,7 @@ void rc_get_input(double moveSpeed, double rotSpeed) {
 
 
     if (input_check_key_pressed('d', buffer, k)) {
-        float rot_speed_r = math_convert_degree_to_radians(rotSpeed);
+        float rot_speed_r = math_convert_radians_to_degree(rotSpeed);
 
         double oldDirX = dirX;
         dirX = dirX * icos(-rot_speed_r) - dirY * isin(-rot_speed_r);

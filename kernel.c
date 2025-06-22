@@ -20,12 +20,28 @@ void main()
     framebuffer_init();
     rc_init();
 
+    float LOW_LIMIT = 0.0167f;
+    float HIGH_LIMIT = 0.1f;
+    
+    u64 lastTime = get_system_timer();
+
     while (1) {
 
         start_bench();
+
+        clear_color(RGB_BLACK);
+
+        u64 currentTime = get_system_timer();
+        float deltaTime = (currentTime - lastTime) / 1000.0f;
+        if ( deltaTime < LOW_LIMIT )
+            deltaTime = LOW_LIMIT;
+        else if ( deltaTime > HIGH_LIMIT )
+            deltaTime = HIGH_LIMIT;
+
+        lastTime = currentTime;
+
         rc_display();
-        double frame_time = stop_bench();
-        rc_get_input(5.0+3.0, 3.0+3.0);
+        rc_get_input(deltaTime * 5.0, deltaTime * 3.0);
 
 
 
