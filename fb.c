@@ -95,7 +95,7 @@ void framebuffer_init() {
     // Framebuffer 
     fb_buffer1 = (u64*)BUS_ADDRESS(mbox[28]);
     active_buffer = fb_buffer1;
-    fb_buffer2 = (u64*)(((u32*)fb_buffer1) + SCREENWIDTH*SCREENHEIGHT);
+    fb_buffer2 = fb_buffer1 + ((pitch * SCREENHEIGHT) / sizeof(u64)); 
     fb_size = mbox[29];
 
     uart_write_text("[DEBUG] Framebuffer: ", UART_NONE);
@@ -106,6 +106,7 @@ void framebuffer_init() {
 
     uart_write_text("[DEBUG] Mailbox Code: ", UART_NONE);
     uart_write_uint(mbox[1], UART_NEW_LINE);
+
 
     uart_write_text("[DEBUG] Pitch: ", UART_NONE);
     uart_write_uint(mbox[24], UART_NEW_LINE);

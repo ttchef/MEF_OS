@@ -59,11 +59,11 @@ void rc_draw_player() {
 
 void rc_display() {
 
-
-    draw_rect(px, py, 8, 8, RGB_BLACK, CENTER);
-    px++;
+    
     rc_get_input();
+
     rc_draw_player();
+
 
 }
 
