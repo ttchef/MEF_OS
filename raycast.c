@@ -48,41 +48,53 @@ void rc_init() {
 
 }
 
-void rc_get_input() {
-    /*
+void rc_get_input(double moveSpeed, double rotSpeed) {
+    
     char buffer[10];
     u32 k = uart_get_input(buffer, 10);
     
-    if (input_check_key_pressed('a', buffer, k)) { 
-        pa -= 0.1;
-        if (pa < 0) {
-            pa += 2 * PI;
-        } 
-
-        float pa_d = math_convert_radians_to_degree(pa); 
-        pdx = icos(pa_d) * 5;
-        pdy = isin(pa_d) * 5; 
+    if (input_check_key_pressed('w', buffer, k)) {
+        if (map[(i32)(posY * MAP_WIDTH + (i32)(posX + dirX * moveSpeed))] == 0) posX += dirX * moveSpeed;
+        if (map[(i32)((posY + dirY * moveSpeed) * MAP_WIDTH + posX)] == 0) posY += dirY * moveSpeed;
     }
+
+    else if (input_check_key_pressed('s', buffer, k)) {
+        if (map[(i32)(posY * MAP_WIDTH + (i32)(posX - dirX * moveSpeed))] == 0) posX -= dirX * moveSpeed;
+        if (map[(i32)((posY - dirY * moveSpeed) * MAP_WIDTH + posX)] == 0) posY -= dirY * moveSpeed;
+    }
+
 
     if (input_check_key_pressed('d', buffer, k)) {
-        pa += 0.1;
-        if (pa > 2*PI) {
-            pa -= 2 * PI;
-        } 
+        float rot_speed_r = math_convert_degree_to_radians(rotSpeed);
 
-        float pa_d = math_convert_radians_to_degree(pa); 
-        pdx = icos(pa_d) * 5;
-        pdy = isin(pa_d) * 5; 
+        double oldDirX = dirX;
+        dirX = dirX * icos(-rot_speed_r) - dirY * isin(-rot_speed_r);
+        dirY = oldDirX * isin(-rot_speed_r) + dirY * icos(-rot_speed_r);
+
+        double oldPlaneX = planeX;
+        planeX = planeX * icos(-rot_speed_r) - planeY * isin(-rot_speed_r);
+        planeY = oldPlaneX * isin(-rot_speed_r) + planeY * icos(-rot_speed_r);
     }
-    if (input_check_key_pressed('w', buffer, k)) { px += pdx; py += pdy; }
-    if (input_check_key_pressed('s', buffer, k)) { px -= pdx; py -= pdy; }
-    */
+
+    if (input_check_key_pressed('a', buffer, k)) {
+        float rot_speed_r = math_convert_radians_to_degree(rotSpeed);
+
+        double oldDirX = dirX;
+        dirX = dirX * icos(rot_speed_r) - dirY * isin(rot_speed_r);
+        dirY = oldDirX * isin(rot_speed_r) + dirY * icos(rot_speed_r);
+
+        double oldPlaneX = planeX;
+        planeX = planeX * icos(rot_speed_r) - planeY * isin(rot_speed_r);
+        planeY = oldPlaneX * isin(rot_speed_r) + planeY * icos(rot_speed_r);
+    }
+
+
 }
 
 
 void rc_display() {
     
-    for (i32 x; x < SCREENWIDTH; x++) {
+    for (i32 x = 0; x < SCREENWIDTH; x++) {
         double cameraX = 2 * x / (double)SCREENWIDTH - 1; // Get Coords in Camera View
         double rayDirX = dirX + planeX * cameraX;
         double rayDirY = dirY + planeY * cameraX;
@@ -94,12 +106,12 @@ void rc_display() {
         double sideDistX;
         double sideDistY;
 
-        double deltaDistX = (rayDirX == 0) ? 1e30 : abs(1 / rayDirX);
-        double deltaDistY = (rayDirY == 0) ? 1e30 : abs(1 / rayDirY);
+        double deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
+        double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
 
         i32 stepX;
         i32 stepY;
-        i32 hit;
+        i32 hit = 0;
         i32 side;
 
         if (rayDirX < 0) {

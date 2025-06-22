@@ -27,5 +27,12 @@ static inline u32 abs(u32 n) {
     return n;
 } 
 
+static inline u32 fabs(double n) {
+    if (n < 0) {
+        return -n;
+    }
+    return n;
+} 
+
 #endif
 

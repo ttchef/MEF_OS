@@ -11,7 +11,7 @@
     #define SCREENHEIGHT 1080
 #else 
     #define SCREENWIDTH 640
-    #define SCREENHEIGHT 640
+    #define SCREENHEIGHT 480
 #endif
 
 

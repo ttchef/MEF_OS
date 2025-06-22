@@ -21,21 +21,20 @@ void main()
     rc_init();
 
     while (1) {
-        
-        //start_bench();
 
+        start_bench();
         rc_display();
+        double frame_time = stop_bench();
+        rc_get_input(5.0+3.0, 3.0+3.0);
 
-        //u64 time = stop_bench_us();
-        //printf("Time For Player: %d\n", time);
 
-        //start_bench();
 
         //wait_ms(55);
         swap_buffers();
 
-       // time = stop_bench_us();
-        //printf("Time For Swapping Buffers: %d\n", time);
+        printf("[DEBUG] Time for hole frame: %d\n", stop_bench());
+
+
 
 
     }

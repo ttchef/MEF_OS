@@ -18,6 +18,6 @@ float isin(u16 i) {
 }
 
 float icos(u16 i) {
-    return isin(i+90);
+    return isin(90-i);
 }
 
