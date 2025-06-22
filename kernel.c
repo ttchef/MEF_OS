@@ -22,15 +22,13 @@ void main()
 
     while (1) {
         
-        
         start_bench();
 
         clear_color((Color){35,35,35});
 
         u64 time = stop_bench_us();
         printf("Time For BG: %d\n", time);
-        
-
+    
         start_bench();
 
         rc_display();
