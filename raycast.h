@@ -20,15 +20,15 @@
     #define GRIDSIZE 80
 #endif
 
+#define MAP_WIDTH 24 
+#define MAP_HEIGHT 24 
+#define MAP_SIZE (MAP_WIDTH * MAP_HEIGHT)
 
-extern float px,py; // player pos
-extern float pdx,pdy,pa;
+extern double posX, posY; // player pos 
+extern double dirX, dirY; // looking direction
+extern double planeX, planeY; // camera position
 
-extern const u32 mapX;
-extern const u32 mapY;
-extern const u32 mapSize;
-
-extern u32 map[];
+extern u32 map[MAP_SIZE];
 
 void rc_init();
 void rc_display();

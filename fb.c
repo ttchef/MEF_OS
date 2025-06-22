@@ -169,6 +169,13 @@ void draw_rect(u32 x, u32 y, u32 width, u32 height, Color color, enum FONT_ORIEN
     }
 }
 
+void draw_vertical_line(i32 x, i32 y0, i32 y1, Color color) {
+    i32 i = y0;
+    for (; i < y1; i++) {
+        draw_pixel(x, i, color);
+    }
+ }
+
 void draw_line(i32 x0, i32 y0, i32 x1, i32 y1, Color color) {
     int dx = abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
     int dy = -abs(y1 - y0), sy = y0 < y1 ? 1 : -1;

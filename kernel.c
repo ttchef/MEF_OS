@@ -20,10 +20,6 @@ void main()
     framebuffer_init();
     rc_init();
 
-    rc_draw_map_2D();
-    swap_buffers();
-    rc_draw_map_2D();
-
     while (1) {
         
         //start_bench();

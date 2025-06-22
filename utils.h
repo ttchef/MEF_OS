@@ -14,6 +14,15 @@ static inline u32 get_current_el() {
     return (el_reg >> 2) & 0x3;
 }
 
+static inline Color color_div_by_factor(Color color, u32 factor) {
+    Color c = color;
+    c.r /= factor;
+    c.g /= factor;
+    c.b /= factor;
+    c.a /= factor;
+    return c;
+}
+
 
 #endif
 
