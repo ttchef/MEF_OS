@@ -4,7 +4,6 @@ A very limited OS designed to (not yet) render a raycaster.
 
 ![Starting](res/pics/mef_os.png)
 
-RAYCASTER:
 ![Raycaster](res/pics/raycaster.png)
 
 # Compiling
