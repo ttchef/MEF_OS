@@ -15,9 +15,9 @@
 #endif
 
 #ifdef ULTRA_HD
-    #define GRIDSIZE 240
+    #define GRIDSIZE 8
 #else 
-    #define GRIDSIZE 80
+    #define GRIDSIZE 4
 #endif
 
 #define MAP_WIDTH 24 
@@ -33,8 +33,7 @@ extern u32 map[MAP_SIZE];
 void rc_init();
 void rc_display();
 void rc_get_input(double moveSpeed, double rotSpeed);
-
-
+void rc_draw_map_2D();
 
 
 #endif

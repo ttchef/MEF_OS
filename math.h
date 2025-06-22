@@ -9,8 +9,8 @@
 extern const double PI;
 extern const u8 sine_table[91];
 
-float isin(u16 i);
-float icos(u16 i);
+float isin(i16 i);
+float icos(i16 i);
 
 static inline float math_convert_degree_to_radians(float degrees) {
     return degrees * (PI / 180.0f);

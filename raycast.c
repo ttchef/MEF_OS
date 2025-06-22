@@ -35,7 +35,7 @@ u32 map[] = {
     1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
     1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
     1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 };
 
 void rc_init() {
@@ -46,6 +46,26 @@ void rc_init() {
     planeX = 0;
     planeY = 0.66;
 
+}
+
+void rc_draw_map_2D() {
+    for (u32 y = 0; y < MAP_HEIGHT; y++) {
+        for (u32 x = 0; x < MAP_WIDTH; x++) {
+            Color color;
+            switch (map[y * MAP_WIDTH + x]) {
+                case 0: color = RGB_BLACK; break;
+                case 1: color = RGB_RED; break;
+                case 2: color = RGB_GREEN; break;
+                case 3: color = RGB_BLUE; break;
+                case 4: color = RGB_WHITE; break;
+                default: color = RGB_YELLOW; break;
+            }
+            draw_rect(x*GRIDSIZE, y*GRIDSIZE, GRIDSIZE, GRIDSIZE, color, TOP_LEFT);
+
+        }
+    }
+    // Player
+    draw_rect(posX*GRIDSIZE, posY*GRIDSIZE, GRIDSIZE, GRIDSIZE, RGB_RED, TOP_LEFT);
 }
 
 void rc_get_input(double moveSpeed, double rotSpeed) {

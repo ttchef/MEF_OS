@@ -11,13 +11,13 @@ const u8 sine_table[91] = {
 const double PI = 3.1415926535;
 
 
-float isin(u16 i) {
+float isin(i16 i) {
     i = (i % 360 + 360) % 360;
     if (i < 180) return sine_table[(i < 90) ? i : 180 - i] / 255.0f;
     return -(sine_table[(i < 270) ? i - 180 : 360 - i] / 255.0f);
 }
 
-float icos(u16 i) {
-    return isin(90-i);
+float icos(i16 i) {
+    return isin((90 - i + 360) % 360);
 }
 

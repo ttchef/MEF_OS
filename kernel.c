@@ -41,6 +41,7 @@ void main()
         lastTime = currentTime;
 
         rc_display();
+        rc_draw_map_2D();
         rc_get_input(deltaTime * 5.0, deltaTime * 3.0);
 
 
