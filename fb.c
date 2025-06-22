@@ -7,6 +7,7 @@
 #include "font.h"
 #include "types.h"
 #include "string.h"
+#include "math.h"
 
 volatile unsigned int __attribute__((aligned(16))) mbox[35];
 
@@ -165,6 +166,20 @@ void draw_rect(u32 x, u32 y, u32 width, u32 height, Color color, enum FONT_ORIEN
     }
     else {
         printf("[ERROR] Unkown rectangle orientation specified!\n");
+    }
+}
+
+void draw_line(i32 x0, i32 y0, i32 x1, i32 y1, Color color) {
+    int dx = abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
+    int dy = -abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
+    int err = dx + dy, e2;
+
+    while (1) {
+        draw_pixel(x0, y0, color);
+        if (x0 == x1 && y0 == y1) break;
+        e2 = 2 * err;
+        if (e2 >= dy) { err += dy; x0 += sx; }
+        if (e2 <= dx) { err += dx; y0 += sy; }
     }
 }
 

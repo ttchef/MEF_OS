@@ -42,6 +42,7 @@ void swap_buffers();
 u32 get_fb_of(u32 x, u32 y);
 //void draw_pixel(u32 x, u32 y, Color color);
 void draw_rect(u32 x, u32 y, u32 width, u32 height, Color color, enum FONT_ORIENT orientation);
+void draw_line(i32 x1, i32 y1, i32 x2, i32 y2, Color color);
 
 void draw_text(Text text);
 void draw_string(char* string, u32 x, u32 y, Color color, u32 scale);

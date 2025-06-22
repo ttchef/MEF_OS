@@ -20,6 +20,9 @@ typedef long long i64;
 #define RGB_GREEN (Color){0,255,0}
 #define RGB_BLUE (Color){0,0,255}
 #define RGB_BLACK (Color){0,0,0}
+#define RGB_WHITE (Color){255,255,255}
+#define RGB_GRAY (Color){35,35,35}
+#define RGB_YELLOW (Color){255,255,0}
 
 typedef struct {
     u8 r;
