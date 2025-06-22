@@ -9,6 +9,10 @@ Get the AArch64 bare-metal target (aarch64-none-elf) from [Arm GNU Compiler](htt
 Put it in a folder called "cross_compiler" and unzip it 
 You should be good to go
 
+# Use on real Hardware
+If you want to use the OS for a real Raspberry pi 4 you first need to download the RPI OS like normally on a SD-Card.
+Then delete all files that start with kernel and copy the compiled kernel8.img and config.txt onto the disk.
+
 # UART and Emulation
 
 For qemu testing get qemu with:
