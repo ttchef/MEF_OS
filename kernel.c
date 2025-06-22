@@ -1,6 +1,6 @@
 
-#include "font.h"
 #include "globals.h"
+#include "font.h"
 #include "io.h"
 #include "fb.h"
 #include "timer.h" 
