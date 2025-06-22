@@ -4,8 +4,6 @@ A very limited OS designed to (not yet) render a raycaster.
 
 ![Starting](res/pics/mef_os.png)
 
-![Raycaster](./res/pics/raycaster.png)
-
 # Compiling
 Get the AArch64 bare-metal target (aarch64-none-elf) from [Arm GNU Compiler](https://developer.arm.com/downloads/-/gnu-a)
 Put it in a folder called "cross_compiler" and unzip it 
@@ -44,6 +42,9 @@ run the code till the next breakpoint with: continue
 
 ---
 BTW the project requires specific hardware so dont even try to run it xD
+
+# Raycaster
+![Raycaster](./res/pics/raycaster.png)
 
 # Credits
 - uses bitfield font from: [font](https://github.com/dhepper/font8x8.git)

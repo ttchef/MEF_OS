@@ -33,7 +33,7 @@ extern u32 map[MAP_SIZE];
 void rc_init();
 void rc_display();
 void rc_get_input(double moveSpeed, double rotSpeed);
-void rc_draw_map_2D();
+void rc_draw_map_2D(double deltaTime);
 
 
 #endif

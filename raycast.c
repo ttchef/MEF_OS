@@ -8,6 +8,7 @@
 #include "fb.h"
 #include "input.h"
 #include "utils.h"
+#include "string.h"
 
 double posX, posY, dirX, dirY, planeX, planeY;
 
@@ -48,7 +49,7 @@ void rc_init() {
 
 }
 
-void rc_draw_map_2D() {
+void rc_draw_map_2D(double deltaTime) {
     for (u32 y = 0; y < MAP_HEIGHT; y++) {
         for (u32 x = 0; x < MAP_WIDTH; x++) {
             Color color;
@@ -65,7 +66,7 @@ void rc_draw_map_2D() {
         }
     }
     // Player
-    draw_rect(posX*GRIDSIZE, posY*GRIDSIZE, GRIDSIZE, GRIDSIZE, RGB_RED, TOP_LEFT);
+    draw_rect(posX*GRIDSIZE, posY*GRIDSIZE, GRIDSIZE, GRIDSIZE, RGB_RED, TOP_LEFT);    
 }
 
 void rc_get_input(double moveSpeed, double rotSpeed) {
@@ -75,12 +76,12 @@ void rc_get_input(double moveSpeed, double rotSpeed) {
     
     if (input_check_key_pressed('w', buffer, k)) {
         if (map[(i32)(posY * MAP_WIDTH + (i32)(posX + dirX * moveSpeed))] == 0) posX += dirX * moveSpeed;
-        if (map[(i32)((posY + dirY * moveSpeed) * MAP_WIDTH + posX)] == 0) posY += dirY * moveSpeed;
+        if (map[(i32)((i32)(posY + dirY * moveSpeed) * MAP_WIDTH + posX)] == 0) posY += dirY * moveSpeed;
     }
 
     else if (input_check_key_pressed('s', buffer, k)) {
         if (map[(i32)(posY * MAP_WIDTH + (i32)(posX - dirX * moveSpeed))] == 0) posX -= dirX * moveSpeed;
-        if (map[(i32)((posY - dirY * moveSpeed) * MAP_WIDTH + posX)] == 0) posY -= dirY * moveSpeed;
+        if (map[(i32)((i32)(posY - dirY * moveSpeed) * MAP_WIDTH + posX)] == 0) posY -= dirY * moveSpeed;
     }
 
 
@@ -166,6 +167,12 @@ void rc_display() {
                 mapY += stepY;
                 side = 1;
             }
+
+            if (mapX >= MAP_WIDTH || mapY >= MAP_HEIGHT) {
+                hit = 1;  
+                break;
+            }
+
             if (map[mapY*MAP_WIDTH+mapX] > 0) hit = 1;
         }
 

@@ -3,6 +3,7 @@
 #define GLOBALS_H
 
 #define COLOR_RGBA
+//#define ULTRA_HD
 
 #define PERIPHERAL_BASE 0xFE000000
 

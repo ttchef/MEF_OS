@@ -41,10 +41,13 @@ void main()
         lastTime = currentTime;
 
         rc_display();
-        rc_draw_map_2D();
+        rc_draw_map_2D(deltaTime);
         rc_get_input(deltaTime * 5.0, deltaTime * 3.0);
-
-
+    
+        char buffer[15];
+        text_format(buffer, "FPS: %d", 1000 / stop_bench());
+        Text text = {buffer, (Vec2){12*4, 24*4+10}, 1, RGB_WHITE, CENTER};
+        draw_text(text);
 
         //wait_ms(55);
         swap_buffers();
