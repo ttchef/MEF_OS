@@ -1,6 +1,6 @@
 # MEF_OS
 
-A very limited OS designed to (not yet) render a raycaster.
+A very limited OS designed to render a raycaster.
 
 ![Starting](res/pics/mef_os.png)
 
